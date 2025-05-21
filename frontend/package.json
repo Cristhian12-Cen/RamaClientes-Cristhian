@@ -9,10 +9,11 @@
     "start": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
+    "@iconify/vue": "^5.0.0",
     "@popperjs/core": "^2.11.8",
     "@tanstack/vue-table": "^8.21.2",
     "axios": "^1.8.4",
-    "bootstrap": "^5.3.5",
+    "bootstrap": "^5.3.6",
     "core-js": "^3.8.3",
     "datatables.net-autofill-bs5": "^2.7.0",
     "datatables.net-bs5": "^2.2.2",

@@ -13,6 +13,7 @@ class Server {
         this.autentificacionR = '/api/auth';
         this.rolesR = '/api/roles';
         this.periodosR = '/api/periodos';
+        this.clientesR = '/api/cliente';
         this.dbConnection();
         this.middleware();
 
@@ -43,6 +44,7 @@ class Server {
         this.app.use(this.autentificacionR, require('./../routes/auth'));
         this.app.use(this.rolesR, require('./../routes/roles'));
         this.app.use(this.periodosR, require('./../routes/periodos'));
+        this.app.use(this.clientesR, require('./../routes/clientes'));
     }
 
     

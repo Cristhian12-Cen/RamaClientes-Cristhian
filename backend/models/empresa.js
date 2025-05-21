@@ -10,7 +10,7 @@ const Empresa = db.define('Empresa', {
     estado: { type: DataTypes.BOOLEAN, allowNull: true }
 }, {
     timestamps: false,
-    tableName: 'empresas'
+    tableName: 'empresa'
 });
 
 Empresa.belongsTo(Periodo, {

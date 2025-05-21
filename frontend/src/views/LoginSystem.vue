@@ -66,7 +66,7 @@ const contra = ref('')
 const login = async () => {
   try {
     // Realizar la solicitud POST a la API para hacer el login
-    const response = await axios.post('http://localhost:3000/api/auth/login', {
+    const response = await axios.post('http://localhost:8080/api/auth/login', {
       correo: correo.value,
       contra: contra.value
     })

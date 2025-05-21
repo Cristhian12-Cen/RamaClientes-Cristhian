@@ -206,7 +206,7 @@ const cerrarModal = () => {
 // pero ahora ya con los datos que se cargaron, modificaron o eliminaron
 const recargartabla = () => {
   // Llamar al backend para obtener los empresas actualizados
-  axios.get('http://localhost:3000/api/empresas')
+  axios.get('http://localhost:8080/api/empresas')
     .then(response => {
       // Actualizar la lista de empresas con los datos más recientes del backend
       items.value = response.data.empresas.map((empresa: any) => ({
@@ -317,7 +317,7 @@ const items = ref<Empresa[]>([]) // Variable para almacenar los datos de la empr
 // FUNCION DE LA PETICION CON AXIOS
 const getCompany = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/empresas')
+    const response = await axios.get('http://localhost:8080/api/empresas')
     items.value = response.data.empresas.map((empresa: any) => ({
       ...empresa,
       nombre_periodo: empresa.Periodo ? empresa.Periodo.nombre_periodo : 'Desconocido' // Solo para mostrar el nombre
@@ -399,7 +399,7 @@ const eliminar = (item: Empresa) => {
       }
       console.log('token:', token)
       // Realizar la solicitud DELETE a la API
-      const response = await axios.delete(`http://localhost:3000/api/empresas/${item.id_empresa}`, config)
+      const response = await axios.delete(`http://localhost:8080/api/empresas/${item.id_empresa}`, config)
       console.log('Respuesta de la API:', response) // Verificar la respuesta de la API
       // Eliminar de la lista de items
       items.value = items.value.filter(i => i.id_empresa !== item.id_empresa)

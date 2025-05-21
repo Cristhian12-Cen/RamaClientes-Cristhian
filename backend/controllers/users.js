@@ -79,9 +79,9 @@ const getContoller = async (req, res) => {
     try{
         limite = parseInt(limite);
         desde = parseInt(desde);
-        let usuarios, total;
+        let usuario, total;
         if (desde > -1 && limite > 0) {
-            [total, usuarios] = await Promise.all([
+            [total, usuario] = await Promise.all([
                 Usuario.count(),
                 Usuario.findAll({
                     offset: desde,
@@ -89,7 +89,7 @@ const getContoller = async (req, res) => {
                 })
             ]);
         } else {
-            [total, usuarios] = await Promise.all([
+            [total, usuario] = await Promise.all([
                 Usuario.count(),
                 // Usuario.findAll()
                 Usuario.findAll({
@@ -104,7 +104,7 @@ const getContoller = async (req, res) => {
             ]);
         }
 
-        res.json({ total, usuarios });
+        res.json({ total, usuario });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: 'Hable con el administrador' });

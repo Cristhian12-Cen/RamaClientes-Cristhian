@@ -1,11 +1,11 @@
 <template>
-   <div class="User">
+   <div class="">
       <Navbar />
       <Siderbar />
-      <!-- USUARIOS -->
+      <!-- clientes -->
       <!-- LLAMAR AL COMPONENTE DE MODAL CARGA -->
       <!-- Mostrar el modal solo si `mostrarModal` es true -->
-      <ModalUsuario :usuario="selectedItem" :tituloModal="tituloModal" :subtituloModal="subtituloModal"
+      <ModalCliente :cliente="selectedItem" :tituloModal="tituloModal" :subtituloModal="subtituloModal"
          v-if="mostrarModal" @cerrar="cerrarModal" @actualizartabla="recargartabla()" />
       <!-- Encabezado de Empresas con boton de carga -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 overflow-auto">
@@ -13,7 +13,7 @@
          <!-- titulo -->
          <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Usuarios</h1>
+            <h1 class="h2">Clientes</h1>
          </div>
 
          <!-- SECCION DE BUSQUEDA Y FILTRO -->
@@ -24,7 +24,7 @@
                   <Icon icon="mdi:search" width="20" height="20" />
                </span>
                <input id="inputSearch" type="text" class="form-control fixed-width-input color-input"
-                  placeholder="Seleccione un filtro para buscar el Usuario" />
+                  placeholder="Seleccione un filtro para buscar el cliente" />
 
                <!-- BOTON DE FILTRO -->
                <button class="btn btn-outline-secondary" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,18 +32,18 @@
                   <Icon icon="mdi:filter" width="24" height="24" />
                </button>
                <ul class="dropdown-menu" aria-labelledby="dropdown03" id="filterDropdownUser">
-                  <li><a class="dropdown-item" data-col="1">Cédula</a></li>
-                  <li><a class="dropdown-item" data-col="2">Nombre</a></li>
-                  <li><a class="dropdown-item" data-col="3">Rol</a></li>
+                  <li><a class="dropdown-item" data-col="1">CI/RUC</a></li>
+                  <li><a class="dropdown-item" data-col="2">Razon Social</a></li>
+                  <li><a class="dropdown-item" data-col="3">Contribuyente</a></li>
                   <li><a class="dropdown-item" data-col="4">Estado</a></li>
                </ul>
             </div>
 
-            <!-- BOTON DE CARGAR NUEVO USUARIO -->
+            <!-- BOTON DE CARGAR NUEVO cliente -->
             <div class="btn-toolbar">
                <div class="btn-group w-100 w-md-auto">
                   <button type="button" class="btn btn-sm btn-secondary" @click="abrirModal('cargar')">Cargar nuevo
-                     usuario
+                     cliente
                      <Icon icon="mdi:plus" width="24" height="24" />
                   </button>
                </div>
@@ -51,34 +51,44 @@
          </div>
          <!-- TABLA -->
          <div class="body table-responsive table table-hover table-bordered shadow-sm">
-            <div class="">
-               <DataTable :options="tableOptions" id="tablausuario" :key="datatableKey"
+            <div class="table-responsive" style="overflow-x: auto; width: 100%;">
+               <DataTable :options="tableOptions" id="tablacliente" :key="datatableKey"
                   class="display table pretty thead th responsive nowrap table-striped table-hover table-bordered"
-                  cellspacing="0" width="100%">
+                  cellspacing="0" width="100%"  style="min-width: 1200px;">
                   <thead>
                      <tr>
                         <th scope="col">ITEM</th>
-                        <th scope="col">CÉDULA</th>
-                        <th scope="col">NOMBRE</th>
+                        <th scope="col">TIPO DOCUMENTO</th>
+                        <th scope="col">N° IDENTIFICACION</th>
+                        <th scope="col">TIPO CONTRIBUYENTE</th>
+                        <th scope="col">RAZON SOCIAL</th>
+                        <th scope="col">DIRECCION</th>
+                        <th scope="col">CIUDAD</th>
                         <th scope="col">TELEFONO</th>
                         <th scope="col">CORREO</th>
-                        <th scope="col">ROL</th>
-                        <th scope="col">ESTADO</th>
+                        <th scope="col">EMPRESA</th>
+                        <th scope="col">CUENTA LOCAL</th>
+                        <th scope="col">CUENTA EXTRANJERA</th>
                         <th scope="col">Modificar</th>
                         <th scope="col">Eliminar</th>
                      </tr>
                   </thead>
                   <tbody>
                      <!-- prueb de como mostrar despues los datos de la bd -->
-                     <tr v-for="item in usuarios" :key="item.id_usuario">
+                     <tr v-for="item in clientes" :key="item.id_cliente">
                         <!-- cambiar luego el id por como esta en la base de datos -->
-                        <td class="number">{{ item.id_usuario }}</td>
-                        <td  class="number">{{ item.cedula }}</td>
-                        <td>{{ item.nombre }}</td>
-                        <td  class="number">{{ item.telefono }}</td>
+                        <td class="number">{{ item.id_cliente }}</td>
+                        <td>{{ item.id_tipo_documento }}</td>
+                        <td  class="number">{{ item.numero_identificacion }}</td>
+                        <td>{{ item.id_tipo_contribuyente /* eslint-disable-line camelcase */ }}</td>
+                        <td>{{ item.razon_social }}</td>
+                        <td>{{ item.direccion }}</td>
+                        <td class="number">{{ item.id_ciudad }}</td>
+                        <td class="number">{{ item.telefono }}</td>
                         <td>{{ item.correo }}</td>
-                        <td>{{ item.nombre_rol /* eslint-disable-line camelcase */ }}</td>
-                        <td>{{ item.estado }}</td>
+                        <td class="number">{{ item.id_empresa }}</td>
+                        <td>{{ item.cuenta_local }}</td>
+                        <td>{{ item.cuenta_extranjera }}</td>
                         <td>
                            <button class="btn btn-edit" @click="editar(item, 'modificar')">
                               <Icon icon="mdi:pencil" width="20" height="20" />
@@ -102,10 +112,10 @@
 
 <script lang="ts" setup>
 
-// CODIGOS DE USUARIO
+// CODIGOS DE cliente
 /* ------------IMPORTACIONES----------------- */
 import { ref, onMounted } from 'vue'
-import ModalUsuario from '@/components/ModalNewUser.vue'
+import ModalCliente from '@/components/ModalNuevoCliente.vue'
 
 // asi se importar
 import Navbar from '@/components/NavBar.vue'
@@ -139,14 +149,14 @@ const mostrarModal = ref(false)
 
 // -----------------ABRIR EL MODAL Y EDITAR TEXTOS ------------------
 
-const tituloModal = ref('Cargar Nuevo Usuario')
-const subtituloModal = ref('Ingrese todos los datos del nuevo Usuario')
+const tituloModal = ref('Cargar Nuevo cliente')
+const subtituloModal = ref('Ingrese todos los datos del nuevo cliente')
 
 // Función para abrir el modal
 const abrirModal = (accion: string) => {
   if (accion === 'cargar') {
-    tituloModal.value = 'Cargar Nuevo Usuario'
-    subtituloModal.value = 'Ingrese todos los datos del nuevo Usuario'
+    tituloModal.value = 'Cargar Nuevo cliente'
+    subtituloModal.value = 'Ingrese todos los datos del nuevo cliente'
   }
   mostrarModal.value = true
 }
@@ -155,37 +165,42 @@ const abrirModal = (accion: string) => {
 const cerrarModal = () => {
   mostrarModal.value = false
   selectedItem.value = {
-    id_usuario: 0,
-    cedula: '',
-    nombre: '',
+    id_cliente: 0, // eslint-disable-line camelcase
+    id_tipo_documento: '', // eslint-disable-line camelcase
+    numero_identificacion: '', // eslint-disable-line camelcase
+    id_tipo_contribuyente: '', // eslint-disable-line camelcase
+    razon_social: '', // eslint-disable-line camelcase
+    direccion: '',
+    id_ciudad: 1, // eslint-disable-line camelcase
     telefono: '',
     correo: '',
-    contra: '12345678',
-    id_rol: 0, // eslint-disable-line camelcase
+    id_empresa: 1, // eslint-disable-line camelcase
+    cuenta_local: '', // eslint-disable-line camelcase
+    cuenta_extranjera: '', // eslint-disable-line camelcase
     estado: ''
   }
 }
 
 const recargartabla = () => {
-  // Llamar al backend para obtener los usuarios actualizados
-  axios.get('http://localhost:8080/api/usuarios')
+  // Llamar al backend para obtener los clientes actualizados
+  axios.get('http://localhost:8080/api/cliente')
     .then(response => {
-      // Actualizar la lista de usuarios con los datos más recientes del backend
-      usuarios.value = response.data.usuarios.map((usuario: any) => ({
-        ...usuario,
-        nombre_rol: usuario.Rol ? usuario.Rol.nombre_rol : 'Desconocido', // Solo para mostrar el nombre
-        estado: usuario.estado ? 'Activo' : 'Inactivo'
+      // Actualizar la lista de clientes con los datos más recientes del backend
+      clientes.value = response.data.clientes.map((cliente: any) => ({
+        ...cliente,
+        id_tipo_contribuyente: cliente.Contribuyente ? cliente.Contribuyente.id_tipo_contribuyente : 'Desconocido', // Solo para mostrar el nombre
+        estado: cliente.estado ? 'Activo' : 'Inactivo'
       })) // Asignar los datos a la variable items
 
       // Forzar la actualización de la tabla con DataTable
       datatableKey.value++
     })
     .catch(error => {
-      console.error('Error al obtener los usuarios:', error)
+      console.error('Error al obtener los clientes:', error)
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No se pudo obtener la lista de usuarios.'
+        text: 'No se pudo obtener la lista de clientes.'
       })
     })
 }
@@ -199,6 +214,7 @@ const datatableKey = ref(0)
 
 // Configuración de las opciones del DataTable con idioma en español
 const tableOptions = ref({
+  scrollX: true,
   dom: '<"top d-flex justify-content-between align-items-center"lB>rt<"bottom d-flex justify-content-between"ip>',
   language: {
     // desabilitia la opcion de buscar en la tabla
@@ -247,7 +263,7 @@ onMounted(() => {
   if (input) {
     input.addEventListener('keyup', function () {
       const value = (this as HTMLInputElement).value
-      const table = $('#tablausuario').DataTable()
+      const table = $('#tablacliente').DataTable()
 
       if (columnaFiltro.value !== null) {
         table.column(columnaFiltro.value).search(value).draw()
@@ -258,69 +274,78 @@ onMounted(() => {
   }
 })
 
-// -----------------------------TRAER USUARIOS DE LA BASE DE DATOS ---------------------------------------------|
+// -----------------------------TRAER clientes DE LA BASE DE DATOS ---------------------------------------------|
 
-interface Usuario { // definición de la interfaz para los datos de usuario
-   id_usuario: number; // eslint-disable-line camelcase
-   cedula: string;
-   nombre: string;
+interface Cliente { // definición de la interfaz para los datos de Cliente
+   id_cliente: number; // eslint-disable-line camelcase
+   id_tipo_documento: string; // eslint-disable-line camelcase
+   numero_identificacion: string; // eslint-disable-line camelcase
+   id_tipo_contribuyente?: string; // eslint-disable-line camelcase
+   razon_social:string; // eslint-disable-line camelcase
+   direccion: string;
+   id_ciudad: number; // eslint-disable-line camelcase
    telefono: string;
    correo: string;
-   id_rol: number; // eslint-disable-line camelcase
-   nombre_rol?: string; // eslint-disable-line camelcase
-   contra: string;
+   id_empresa: number; // eslint-disable-line camelcase
+   cuenta_local: string; // eslint-disable-line camelcase
+   cuenta_extranjera: string; // eslint-disable-line camelcase
    estado: string;
 }
 
-// declaración de la variable usuarios como un array de objetos Usuario
-const usuarios = ref<Usuario[]>([]) // Aquí se almacenarán los usuarios desde la base de datos
+// declaración de la variable clientes como un array de objetos cliente
+const clientes = ref<Cliente[]>([]) // Aquí se almacenarán los clientes desde la base de datos
 
-const getUser = async () => {
+const getCliente = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/usuarios') // O la ruta correcta de tu JSON server
-    usuarios.value = response.data.usuarios.map((usuario: any) => ({
-      ...usuario,
-      nombre_rol: usuario.Rol ? usuario.Rol.nombre_rol : 'Desconocido', // Solo para mostrar el nombre
-      estado: usuario.estado ? 'Activo' : 'Inactivo'
+    const response = await axios.get('http://localhost:8080/api/cliente') // O la ruta correcta de tu JSON server
+    clientes.value = response.data.clientes.map((cliente: any) => ({
+      ...cliente,
+      id_tipo_contribuyente: cliente.Contribuyente ? cliente.Contribuyente.id_tipo_contribuyente : 'Desconocido', // Solo para mostrar el nombre
+      estado: cliente.estado ? 'Activo' : 'Inactivo'
     })) // Asignar los datos a la variable items
-    console.log('Usuarios cargados:', response.data) // Verificar la respuesta de la API
+    console.log('clientes cargados:', response.data) // Verificar la respuesta de la API
 
     // Destruir DataTable si ya existe
     datatableKey.value++
   } catch (error) {
-    console.error('Error al obtener los usuarios:', error)
+    console.error('Error al obtener los clientes:', error)
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'No se pudo cargar los usuarios.'
+      text: 'No se pudo cargar los clientes.'
     })
   }
 }
 
-// montar el componente y cargar los usuarios al inicio
+// montar el componente y cargar los clientes al inicio
 onMounted(() => {
-  getUser()
+  getCliente()
 })
 
 // -----------------HASTA ACÁ EL CODIGO DE PETICION PARA OBTENER LOS DATOS DE LA BASE DE DATOS------------------|
 
 // ----------------CODIGO PARA SELECCIONAR UNA FILA DE LA TABLA PARA MODIFICARLA--------------------------------|
 
-const selectedItem = ref<Usuario>({
-  id_usuario: 0, // eslint-disable-line camelcase
-  cedula: '',
-  nombre: '',
+const selectedItem = ref<Cliente>({
+  id_cliente: 0, // eslint-disable-line camelcase
+  id_tipo_documento: '', // eslint-disable-line camelcase
+  numero_identificacion: '', // eslint-disable-line camelcase
+  id_tipo_contribuyente: '', // eslint-disable-line camelcase
+  razon_social: '', // eslint-disable-line camelcase
+  direccion: '',
+  id_ciudad: 1, // eslint-disable-line camelcase
   telefono: '',
   correo: '',
-  contra: '12345678',
-  id_rol: 0, // eslint-disable-line camelcase
+  id_empresa: 1, // eslint-disable-line camelcase
+  cuenta_local: '', // eslint-disable-line camelcase
+  cuenta_extranjera: '', // eslint-disable-line camelcase
   estado: ''
 }) // Variable para almacenar el elemento seleccionado
 
-const editar = (item: Usuario, accion: string) => {
+const editar = (item: Cliente, accion: string) => {
   if (accion === 'modificar') {
-    tituloModal.value = 'Modificar Usuario'
-    subtituloModal.value = 'Edite los datos del Usuario'
+    tituloModal.value = 'Modificar Cliente'
+    subtituloModal.value = 'Edite los datos del Cliente'
   }
   console.log('Datos del item:', item) // Ver los datos que se están pasando
 
@@ -335,12 +360,12 @@ const editar = (item: Usuario, accion: string) => {
 // ---------------- HASTA ACÁ EL CODIGO PARA SELECCIONAR UNA FILA DE LA TABLA PARA MODIFICARLA------------------------------|
 
 // --------------------------CODIGO PARA ELIMINAR UNA FILA DE LA TABLA  -----------------------------------------|
-const eliminar = async (item: Usuario) => {
-  console.log('usuario a eliminar:', item.nombre) // Depuración: Verificar si item es válido
+const eliminar = async (item: Cliente) => {
+  console.log('cliente a eliminar:', item.razon_social) // Depuración: Verificar si item es válido
 
   // Confirmar eliminación con SweetAlert
   Swal.fire({
-    title: `¿Estás seguro de que deseas eliminar al usuario: ${item.nombre}?`,
+    title: `¿Estás seguro de que deseas eliminar al cliente: ${item.razon_social}?`,
     text: 'No podrás revertir esto!',
     icon: 'question',
     showCancelButton: true,
@@ -368,7 +393,7 @@ const eliminar = async (item: Usuario) => {
         }
         console.log('token:', token)
         // Realizar la solicitud DELETE a la API
-        const response = await axios.delete(`http://localhost:8080/api/usuarios/${item.id_usuario}`, config)
+        const response = await axios.delete(`http://localhost:8080/api/cliente/${item.id_cliente}`, config)
         console.log('Respuesta de la API:', response) // Verificar la respuesta de la API
 
         // Forzar la actualización de la tabla con DataTable
@@ -376,15 +401,15 @@ const eliminar = async (item: Usuario) => {
         // Mostrar mensaje de éxito
         Swal.fire(
           'Eliminado!',
-          'El usuario ha sido eliminado.',
+          'El cliente ha sido eliminado.',
           'success'
         )
       } catch (error) {
-        console.error('Error al eliminar usuario:', error)
+        console.error('Error al eliminar cliente:', error)
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No se pudo eliminar el usuario.'
+          text: 'No se pudo eliminar el cliente.'
         })
       }
     }
