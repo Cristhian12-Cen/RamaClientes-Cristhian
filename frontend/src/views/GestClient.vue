@@ -1,5 +1,5 @@
 <template>
-   <div class="Cliente">
+   <div class="client">
       <Navbar />
       <Siderbar />
       <!-- clientes -->
@@ -7,7 +7,7 @@
       <!-- Mostrar el modal solo si `mostrarModal` es true -->
       <ModalCliente :cliente="selectedItem" :tituloModal="tituloModal" :subtituloModal="subtituloModal"
          v-if="mostrarModal" @cerrar="cerrarModal" @actualizartabla="recargartabla()" />
-      <!-- Encabezado de Empresas con boton de carga -->
+      <!-- Encabezado de clientes con boton de carga -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 overflow-auto">
 
          <!-- titulo -->
@@ -78,15 +78,15 @@
                      <tr v-for="item in clientes" :key="item.id_cliente">
                         <!-- cambiar luego el id por como esta en la base de datos -->
                         <td class="number">{{ item.id_cliente }}</td>
-                        <td>{{ item.id_tipo_documento }}</td>
+                        <td>{{ item.tipo_documento.descripcion }}</td>
                         <td  class="number">{{ item.numero_identificacion }}</td>
-                        <td>{{ item.id_tipo_contribuyente /* eslint-disable-line camelcase */ }}</td>
+                        <td>{{  item.tipo_contribuyente.descripcion /* eslint-disable-line camelcase */ }}</td>
                         <td>{{ item.razon_social }}</td>
                         <td>{{ item.direccion }}</td>
-                        <td class="number">{{ item.id_ciudad }}</td>
+                        <td class="number">{{ item.ciudad.nombre }}</td>
                         <td class="number">{{ item.telefono }}</td>
                         <td>{{ item.correo }}</td>
-                        <td class="number">{{ item.id_empresa }}</td>
+                        <td class="number">{{ item.empresa.nombre }}</td>
                         <td>{{ item.cuenta_local }}</td>
                         <td>{{ item.cuenta_extranjera }}</td>
                         <td>
@@ -165,16 +165,16 @@ const abrirModal = (accion: string) => {
 const cerrarModal = () => {
   mostrarModal.value = false
   selectedItem.value = {
-    id_cliente: 0, // eslint-disable-line camelcase
-    id_tipo_documento: '', // eslint-disable-line camelcase
+    id_cliente: 1, // eslint-disable-line camelcase
+    tipo_documento: { descripcion: '' }, // ← cambio aquí
     numero_identificacion: '', // eslint-disable-line camelcase
-    id_tipo_contribuyente: '', // eslint-disable-line camelcase
+    tipo_contribuyente: { descripcion: '' }, // ← cambio aquí
     razon_social: '', // eslint-disable-line camelcase
     direccion: '',
-    id_ciudad: 1, // eslint-disable-line camelcase
+    ciudad: { nombre: '' }, // ← cambio aquí
     telefono: '',
     correo: '',
-    id_empresa: 1, // eslint-disable-line camelcase
+    empresa: { nombre: '' }, // ← cambio aquí
     cuenta_local: '', // eslint-disable-line camelcase
     cuenta_extranjera: '', // eslint-disable-line camelcase
     estado: ''
@@ -185,14 +185,25 @@ const recargartabla = () => {
   // Llamar al backend para obtener los clientes actualizados
   axios.get('http://localhost:8080/api/cliente')
     .then(response => {
-      // Actualizar la lista de clientes con los datos más recientes del backend
       clientes.value = response.data.clientes.map((cliente: any) => ({
-        ...cliente,
-        id_tipo_contribuyente: cliente.Contribuyente ? cliente.Contribuyente.id_tipo_contribuyente : 'Desconocido', // Solo para mostrar el nombre
+        // Campos básicos
+        id_cliente: cliente.id_cliente,
+        numero_identificacion: cliente.numero_identificacion,
+        razon_social: cliente.razon_social,
+        direccion: cliente.direccion,
+        telefono: cliente.telefono,
+        correo: cliente.correo,
+        cuenta_local: cliente.cuenta_local,
+        cuenta_extranjera: cliente.cuenta_extranjera,
+        // Campos con relaciones
+        ciudad: { nombre: cliente.Ciudad?.nombre || 'Sin ciudad' },
+        empresa: { nombre: cliente.Empresa?.nombre || 'Sin empresa' },
+        tipo_documento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
+        tipo_contribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
         estado: cliente.estado ? 'Activo' : 'Inactivo'
-      })) // Asignar los datos a la variable items
+      }))
 
-      // Forzar la actualización de la tabla con DataTable
+      console.log('Tabla recargada, primer cliente:', clientes.value[0]) // PARA DEBUGGEAR
       datatableKey.value++
     })
     .catch(error => {
@@ -278,15 +289,15 @@ onMounted(() => {
 
 interface Cliente { // definición de la interfaz para los datos de Cliente
    id_cliente: number; // eslint-disable-line camelcase
-   id_tipo_documento: string; // eslint-disable-line camelcase
+   tipo_documento: { descripcion: string }; // eslint-disable-line camelcase
    numero_identificacion: string; // eslint-disable-line camelcase
-   id_tipo_contribuyente?: string; // eslint-disable-line camelcase
+   tipo_contribuyente: { descripcion: string }; // eslint-disable-line camelcase
    razon_social:string; // eslint-disable-line camelcase
    direccion: string;
-   id_ciudad: number; // eslint-disable-line camelcase
+   ciudad: { nombre: string }; // ← Antes era number
    telefono: string;
    correo: string;
-   id_empresa: number; // eslint-disable-line camelcase
+   empresa: { nombre: string }; // ← Antes era number
    cuenta_local: string; // eslint-disable-line camelcase
    cuenta_extranjera: string; // eslint-disable-line camelcase
    estado: string;
@@ -299,13 +310,24 @@ const getCliente = async () => {
   try {
     const response = await axios.get('http://localhost:8080/api/cliente') // O la ruta correcta de tu JSON server
     clientes.value = response.data.clientes.map((cliente: any) => ({
-      ...cliente,
-      id_tipo_contribuyente: cliente.Contribuyente ? cliente.Contribuyente.id_tipo_contribuyente : 'Desconocido', // Solo para mostrar el nombre
+      // Campos básicos
+      id_cliente: cliente.id_cliente,
+      numero_identificacion: cliente.numero_identificacion,
+      razon_social: cliente.razon_social,
+      direccion: cliente.direccion,
+      telefono: cliente.telefono,
+      correo: cliente.correo,
+      cuenta_local: cliente.cuenta_local,
+      cuenta_extranjera: cliente.cuenta_extranjera,
+      // Campos con relaciones - mapear correctamente
+      ciudad: { nombre: cliente.Ciudad?.nombre || 'Sin ciudad' },
+      empresa: { nombre: cliente.Empresa?.nombre || 'Sin empresa' },
+      tipo_documento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
+      tipo_contribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
       estado: cliente.estado ? 'Activo' : 'Inactivo'
-    })) // Asignar los datos a la variable items
-    console.log('clientes cargados:', response.data) // Verificar la respuesta de la API
-
-    // Destruir DataTable si ya existe
+    }))
+    console.log('clientes cargados111:', response.data)
+    console.log('primer cliente mapeado:', clientes.value[0]) // PARA DEBUGGEAR
     datatableKey.value++
   } catch (error) {
     console.error('Error al obtener los clientes:', error)
@@ -327,16 +349,16 @@ onMounted(() => {
 // ----------------CODIGO PARA SELECCIONAR UNA FILA DE LA TABLA PARA MODIFICARLA--------------------------------|
 
 const selectedItem = ref<Cliente>({
-  id_cliente: 0, // eslint-disable-line camelcase
-  id_tipo_documento: '', // eslint-disable-line camelcase
+  id_cliente: 1, // eslint-disable-line camelcase
+  tipo_documento: { descripcion: '' }, // ← cambio aquí
   numero_identificacion: '', // eslint-disable-line camelcase
-  id_tipo_contribuyente: '', // eslint-disable-line camelcase
+  tipo_contribuyente: { descripcion: '' }, // ← cambio aquí
   razon_social: '', // eslint-disable-line camelcase
   direccion: '',
-  id_ciudad: 1, // eslint-disable-line camelcase
+  ciudad: { nombre: '' }, // ← cambio aquí
   telefono: '',
   correo: '',
-  id_empresa: 1, // eslint-disable-line camelcase
+  empresa: { nombre: '' }, // ← cambio aquí
   cuenta_local: '', // eslint-disable-line camelcase
   cuenta_extranjera: '', // eslint-disable-line camelcase
   estado: ''

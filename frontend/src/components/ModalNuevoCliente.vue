@@ -17,38 +17,38 @@
               <!-- Tipo documento -->
               <div class="col-md-6 mb-3 ms-auto text-start">
                 <label for="rol" class="form-label">Tipo documento</label>
-                <select id="rol" name="rol" v-model="cliente.id_tipo_documento" :class="['form-control', { 'is-invalid': errores.id_tipo_documento }]" required>
+                <select id="rol" name="rol" v-model="cliente.tipo_documento" :class="['form-control', { 'is-invalid': errores.tipo_documento }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="docs in documentoDESCP" :key="docs.id_tipo_documento" :value="docs.id_tipo_documento">
+                  <option v-for="docs in documentoDESCP" :key="docs.tipo_documento" :value="docs.tipo_documento">
                     {{ docs.descripcion || 'Sin rol' }} <!-- Mostrar un mensaje si no hay nombre -->
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_tipo_documento }}
+                  {{ errores.tipo_documento }}
                 </div>
               </div>
 
               <!-- Tipo Contribuyente -->
               <div class="col-md-6 mb-3 ms-auto text-start">
                 <label for="rol" class="form-label">Tipo Contribuyente</label>
-                <select id="rol" name="rol" v-model="cliente.id_tipo_contribuyente" :class="['form-control', { 'is-invalid': errores.id_tipo_contribuyente }]" required>
+                <select id="rol" name="rol" v-model="cliente.tipo_contribuyente" :class="['form-control', { 'is-invalid': errores.tipo_contribuyente }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.id_tipo_contribuyente" :value="contribuyentes.id_tipo_contribuyente">
+                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.tipo_contribuyente" :value="contribuyentes.tipo_contribuyente">
                     {{ contribuyentes.descripcion || 'Sin rol' }} <!-- Mostrar un mensaje si no hay nombre -->
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_tipo_contribuyente }}
+                  {{ errores.tipo_contribuyente }}
                 </div>
               </div>
 
               <!-- NOMBRE -->
               <div class="col-md-6 mb-3 text-start">
-                <label for="numeroIDENTIFICACION" class="form-label">N° IDENTIFICACION</label>
-                <input type="text" id="numeroIDENTIFICACION" v-model="cliente.numeroIDENTIFICACION" :class="['form-control', { 'is-invalid': errores.numeroIDENTIFICACION }]"
+                <label for="numero_identificacion" class="form-label">N° IDENTIFICACION</label>
+                <input type="text" id="numero_identificacion" v-model="cliente.numero_identificacion" :class="['form-control', { 'is-invalid': errores.numero_identificacion }]"
                   placeholder="Ingrese el numero de identificacion" required>
                 <div class="invalid-feedback">
-                  {{ errores.numeroIDENTIFICACION }}
+                  {{ errores.numero_identificacion }}
                 </div>
               </div>
 
@@ -73,11 +73,11 @@
               </div>
                 <!-- CORREO -->
                 <div class="col-md-6 mb-3 text-start">
-                <label for="razonSOCIAL" class="form-label">RAZON SOCIAL</label>
-                <input type="" id="razonSOCIAL" v-model="cliente.razonSOCIAL" :class="['form-control', { 'is-invalid': errores.razonSOCIAL }]"
+                <label for="razon_social" class="form-label">RAZON SOCIAL</label>
+                <input type="" id="razon_social" v-model="cliente.razon_social" :class="['form-control', { 'is-invalid': errores.razon_social }]"
                   placeholder="" required>
                 <div class="invalid-feedback">
-                  {{ errores.razonSOCIAL }}
+                  {{ errores.razon_social }}
                 </div>
               </div>
 
@@ -93,21 +93,21 @@
 
                 <!-- CORREO -->
                 <div class="col-md-6 mb-3 text-start">
-                <label for="id_ciudad" class="form-label">CIUDAD</label>
-                <input type="" id="id_ciudad" v-model="cliente.id_ciudad" :class="['form-control', { 'is-invalid': errores.id_ciudad }]"
+                <label for="ciudad" class="form-label">CIUDAD</label>
+                <input type="" id="ciudad" v-model="cliente.ciudad" :class="['form-control', { 'is-invalid': errores.ciudad }]"
                   placeholder="" required>
                 <div class="invalid-feedback">
-                  {{ errores.id_ciudad }}
+                  {{ errores.ciudad }}
                 </div>
               </div>
 
                 <!-- CORREO -->
                 <div class="col-md-6 mb-3 text-start">
-                <label for="id_empresa" class="form-label">EMPRESA</label>
-                <input type="" id="id_empresa" v-model="cliente.id_empresa" :class="['form-control', { 'is-invalid': errores.id_empresa }]"
+                <label for="empresa" class="form-label">EMPRESA</label>
+                <input type="" id="empresa" v-model="cliente.empresa" :class="['form-control', { 'is-invalid': errores.empresa }]"
                   placeholder="" required>
                 <div class="invalid-feedback">
-                  {{ errores.id_empresa }}
+                  {{ errores.empresa }}
                 </div>
               </div>
 
@@ -211,26 +211,26 @@ onMounted(() => {
 const enviado = ref(false)
 
 const errores = ref({
-  numeroIDENTIFICACION: '',
-  id_tipo_contribuyente: '',
+  numero_identificacion: '',
+  tipo_contribuyente: '',
   telefono: '',
   correo: '',
-  id_empresa: '',
+  empresa: '',
   cuenta_extranjera: '',
   cuenta_local: '',
-  id_ciudad: '',
+  ciudad: '',
   direccion: '',
-  razonSOCIAL: '',
-  id_tipo_documento: ''
+  razon_social: '',
+  tipo_documento: ''
 })
 
 const validarnumeroIDENTIFICACION = () => {
-  if (!cliente.value.numeroIDENTIFICACION || typeof cliente.value.numeroIDENTIFICACION !== 'string') {
+  if (!cliente.value.numero_identificacion || typeof cliente.value.numero_identificacion !== 'string') {
     return 'Por favor, ingrese el número de cédula.'
   }
-  const ced = cliente.value.numeroIDENTIFICACION.trim()
+  const ced = cliente.value.numero_identificacion.trim()
   if (!/^\d{6,10}$/.test(ced)) return 'La cédula debe contener entre 6 y 10 dígitos numéricos.'
-  cliente.value.numeroIDENTIFICACION = ced
+  cliente.value.numero_identificacion = ced
   return ''
 }
 
@@ -246,18 +246,18 @@ const soloNumerostelefono = (campo: string, maxLong: number) => {
 }
 
 const validarcontribuyente = () => {
-  if (!cliente.value.id_tipo_contribuyente || cliente.value.id_tipo_contribuyente === 0) {
+  if (!cliente.value.tipo_contribuyente || cliente.value.tipo_contribuyente === 0) {
     return 'Por favor, seleccione un rol.'
   }
   return ''
 }
 
 const razonSOCIAL = () => {
-  const razonSOCIAL = cliente.value.razonSOCIAL.trim().replace(/\s+/g, ' ')
-  if (!razonSOCIAL) return 'Por favor, ingrese la razon social.'
-  if (razonSOCIAL.length < 3) return ' debe tener al menos 6 caracteres.'
-  if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ ]+$/.test(razonSOCIAL)) return 'Solo se permiten letras.'
-  cliente.value.razonSOCIAL = razonSOCIAL
+  const razon_social = cliente.value.razon_social.trim().replace(/\s+/g, ' ') // eslint-disable-line camelcase
+  if (!razon_social) return 'Por favor, ingrese la razon social.' // eslint-disable-line camelcase
+  if (razon_social.length < 3) return ' debe tener al menos 6 caracteres.'
+  if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ ]+$/.test(razon_social)) return 'Solo se permiten letras.'
+  cliente.value.razon_social = razon_social // eslint-disable-line camelcase
   return ''
 }
 
@@ -284,7 +284,7 @@ const validarCorreo = () => {
 
 interface clienteDatos {
   id_cliente: number // eslint-disable-line camelcase
-  numeroIDENTIFICACION: string // eslint-disable-line camelcase
+  numero_identificacion: string // eslint-disable-line camelcase
   correo: string // eslint-disable-line camelcase
 }
 
@@ -293,16 +293,16 @@ const verificarclienteDuplicado = async () => {
     const { data } = await axios.get('http://localhost:8080/api/cliente')
     const clientesRegistrados = data.clientes
 
-    const numeroIDENTIFICACION = cliente.value.numeroIDENTIFICACION.trim()
+    const numero_identificacion = cliente.value.numero_identificacion.trim() // eslint-disable-line camelcase
     const correo = cliente.value.correo.trim().toLowerCase()
 
-    const numeroIDENTIFICACIONExistente = clientesRegistrados.some((u: clienteDatos) => u.numeroIDENTIFICACION === numeroIDENTIFICACION)
+    const numero_identificacionExistente = clientesRegistrados.some((u: clienteDatos) => u.numero_identificacion === numero_identificacion) // eslint-disable-line camelcase
     const correoExistente = clientesRegistrados.some((u: clienteDatos) => u.correo.toLowerCase() === correo)
 
-    return { numeroIDENTIFICACIONExistente, correoExistente }
+    return { numero_identificacionExistente, correoExistente }
   } catch (error) {
     console.error('Error al consultar clientes:', error)
-    return { numeroIDENTIFICACIONExistente: false, correoExistente: false }
+    return { numero_identificacionExistente: false, correoExistente: false }
   }
 }
 
@@ -311,16 +311,16 @@ const verificarclienteDuplicado = async () => {
 // ---------------------CONFIGURACION PAR EJECUTAR GUARDAR O MODIFICAR------------------------------------|
 const guardarOmodificar = async () => {
   /* if (cliente.value.id_cliente) {
-    // Si existe id_empresa, es una modificación
+    // Si existe empresa, es una modificación
     modificar()
   } else {
     // Si no existe, es un nuevo registro
     guardar()
   } */
   enviado.value = true
-  errores.value.numeroIDENTIFICACION = validarnumeroIDENTIFICACION()
-  errores.value.id_tipo_contribuyente = validarcontribuyente()
-  errores.value.razonSOCIAL = razonSOCIAL()
+  errores.value.numero_identificacion = validarnumeroIDENTIFICACION()
+  errores.value.tipo_contribuyente = validarcontribuyente()
+  errores.value.razon_social = razonSOCIAL()
   errores.value.telefono = validarTelefono()
   errores.value.correo = validarCorreo()
 
@@ -333,9 +333,9 @@ const guardarOmodificar = async () => {
   if (cliente.value.id_cliente) {
     modificar()
   } else {
-    const { numeroIDENTIFICACIONExistente, correoExistente } = await verificarclienteDuplicado()
-    if (numeroIDENTIFICACIONExistente) {
-      errores.value.numeroIDENTIFICACION = 'Ya existe un cliente con esta cédula.'
+    const { numero_identificacionExistente, correoExistente } = await verificarclienteDuplicado() // eslint-disable-line camelcase
+    if (numero_identificacionExistente) { // eslint-disable-line camelcase
+      errores.value.numero_identificacion = 'Ya existe un cliente con esta cédula.'
       makeToast('Error', 'Cédula ya registrada.', 'error')
       return
     }
@@ -370,14 +370,14 @@ const guardar = async () => {
 
   try {
     const response = await axios.post('http://localhost:8080/api/cliente', {
-      numeroIDENTIFICACION: cliente.value.numeroIDENTIFICACION,
-      razonSOCIAL: cliente.value.razonSOCIAL,
+      numero_identificacion: cliente.value.numero_identificacion,
+      razon_social: cliente.value.razon_social,
       telefono: cliente.value.telefono,
       direccion: cliente.value.direccion,
-      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
-      id_ciudad: cliente.value.id_ciudad,
-      id_empresa: cliente.value.id_empresa,
-      id_tipo_documento: cliente.value.id_tipo_documento,
+      tipo_contribuyente: cliente.value.tipo_contribuyente,
+      ciudad: cliente.value.ciudad,
+      empresa: cliente.value.empresa,
+      tipo_documento: cliente.value.tipo_documento,
       cuenta_local: cliente.value.cuenta_local,
       cuenta_extranjera: cliente.value.cuenta_extranjera,
       correo: cliente.value.correo,
@@ -423,14 +423,14 @@ const modificar = async () => {
       }
     }
     const response = await axios.put(`http://localhost:8080/api/cliente/${cliente.value.id_cliente}`, {
-      numeroIDENTIFICACION: cliente.value.numeroIDENTIFICACION,
-      razonSOCIAL: cliente.value.razonSOCIAL,
+      numero_identificacion: cliente.value.numero_identificacion,
+      razon_social: cliente.value.razon_social,
       telefono: cliente.value.telefono,
       direccion: cliente.value.direccion,
-      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
-      id_ciudad: cliente.value.id_ciudad,
-      id_empresa: cliente.value.id_empresa,
-      id_tipo_documento: cliente.value.id_tipo_documento,
+      tipo_contribuyente: cliente.value.tipo_contribuyente,
+      ciudad: cliente.value.ciudad,
+      empresa: cliente.value.empresa,
+      tipo_documento: cliente.value.tipo_documento,
       cuenta_local: cliente.value.cuenta_local,
       cuenta_extranjera: cliente.value.cuenta_extranjera,
       correo: cliente.value.correo,
@@ -468,12 +468,12 @@ const modificar = async () => {
 
 // Definir la estructura
 interface TipoContribuyente {
-  id_tipo_contribuyente: number // eslint-disable-line camelcase
+  tipo_contribuyente: number // eslint-disable-line camelcase
   descripcion: string // eslint-disable-line camelcase
 }
 
 interface TipoDocumento {
-  id_tipo_documento: number // eslint-disable-line camelcase
+  tipo_documento: number // eslint-disable-line camelcase
   descripcion: string // eslint-disable-line camelcase
 }
 
@@ -514,17 +514,17 @@ onMounted(() => {
 // ---------------------------CODIGO PARA LIMPAR EL FORMULARIO -------------------------------------------|
 const limpiarFormulario = () => {
   Object.assign(cliente.value, {
-    numeroIDENTIFICACION: '',
-    id_tipo_contribuyente: '',
+    numero_identificacion: '',
+    tipo_contribuyente: '',
     telefono: '',
     correo: '',
-    id_empresa: '',
+    empresa: '',
     cuenta_extranjera: '',
     cuenta_local: '',
-    id_ciudad: '',
+    ciudad: '',
     direccion: '',
-    razonSOCIAL: '',
-    id_tipo_documento: ''
+    razon_social: '',
+    tipo_documento: ''
   })
 }
 // ---------------------------FIN CODIGO PARA LIMPAR EL FORMULARIO --------------------------------------------------

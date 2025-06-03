@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../db/connection");
 
 const TipoContribuyente = db.define('TipoContribuyente', {
-    id_contribuyente: { type: DataTypes.INTEGER, primaryKey: true },
+    id_tipo_contribuyente: { type: DataTypes.INTEGER, primaryKey: true },
     descripcion: { type: DataTypes.STRING, allowNull: false },
 }, {
     createdAt: false,
