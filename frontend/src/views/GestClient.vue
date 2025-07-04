@@ -78,15 +78,15 @@
                      <tr v-for="item in clientes" :key="item.id_cliente">
                         <!-- cambiar luego el id por como esta en la base de datos -->
                         <td class="number">{{ item.id_cliente }}</td>
-                        <td>{{ item.tipo_documento.descripcion }}</td>
+                        <td>{{ item.tipo_documento?.descripcion || 'Sin tipo' }}</td>
                         <td  class="number">{{ item.numero_identificacion }}</td>
-                        <td>{{  item.tipo_contribuyente.descripcion /* eslint-disable-line camelcase */ }}</td>
+                        <td>{{ item.tipo_contribuyente?.descripcion || 'Sin tipo' }}</td>
                         <td>{{ item.razon_social }}</td>
                         <td>{{ item.direccion }}</td>
-                        <td class="number">{{ item.ciudad.nombre }}</td>
+                        <td class="number">{{ item.ciudad?.nombre || 'Sin ciudad' }}</td>
                         <td class="number">{{ item.telefono }}</td>
                         <td>{{ item.correo }}</td>
-                        <td class="number">{{ item.empresa.nombre }}</td>
+                        <td class="number">{{ item.empresa?.nombre || 'Sin empresa' }}</td>
                         <td>{{ item.cuenta_local }}</td>
                         <td>{{ item.cuenta_extranjera }}</td>
                         <td>
@@ -165,25 +165,25 @@ const abrirModal = (accion: string) => {
 const cerrarModal = () => {
   mostrarModal.value = false
   selectedItem.value = {
-    id_cliente: 1, // eslint-disable-line camelcase
-    tipo_documento: { descripcion: '' }, // ← cambio aquí
-    numero_identificacion: '', // eslint-disable-line camelcase
-    tipo_contribuyente: { descripcion: '' }, // ← cambio aquí
-    razon_social: '', // eslint-disable-line camelcase
+    id_cliente: 0,
+    tipo_documento: { descripcion: '' },
+    numero_identificacion: '',
+    tipo_contribuyente: { descripcion: '' },
+    razon_social: '',
     direccion: '',
-    ciudad: { nombre: '' }, // ← cambio aquí
+    ciudad: { nombre: '' },
     telefono: '',
     correo: '',
-    empresa: { nombre: '' }, // ← cambio aquí
-    cuenta_local: '', // eslint-disable-line camelcase
-    cuenta_extranjera: '', // eslint-disable-line camelcase
+    empresa: { nombre: '' },
+    cuenta_local: '',
+    cuenta_extranjera: '',
     estado: ''
   }
 }
 
 const recargartabla = () => {
   // Llamar al backend para obtener los clientes actualizados
-  axios.get('http://localhost:8080/api/cliente')
+  axios.get('http://localhost:3000/api/cliente')
     .then(response => {
       clientes.value = response.data.clientes.map((cliente: any) => ({
         // Campos básicos
@@ -288,18 +288,18 @@ onMounted(() => {
 // -----------------------------TRAER clientes DE LA BASE DE DATOS ---------------------------------------------|
 
 interface Cliente { // definición de la interfaz para los datos de Cliente
-   id_cliente: number; // eslint-disable-line camelcase
-   tipo_documento: { descripcion: string }; // eslint-disable-line camelcase
-   numero_identificacion: string; // eslint-disable-line camelcase
-   tipo_contribuyente: { descripcion: string }; // eslint-disable-line camelcase
-   razon_social:string; // eslint-disable-line camelcase
+   id_cliente: number;
+   tipo_documento: { descripcion: string };
+   numero_identificacion: string;
+   tipo_contribuyente: { descripcion: string };
+   razon_social: string;
    direccion: string;
-   ciudad: { nombre: string }; // ← Antes era number
+   ciudad: { nombre: string };
    telefono: string;
    correo: string;
-   empresa: { nombre: string }; // ← Antes era number
-   cuenta_local: string; // eslint-disable-line camelcase
-   cuenta_extranjera: string; // eslint-disable-line camelcase
+   empresa: { nombre: string };
+   cuenta_local: string;
+   cuenta_extranjera: string;
    estado: string;
 }
 
@@ -308,7 +308,7 @@ const clientes = ref<Cliente[]>([]) // Aquí se almacenarán los clientes desde 
 
 const getCliente = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/cliente') // O la ruta correcta de tu JSON server
+    const response = await axios.get('http://localhost:3000/api/cliente') // Corregido el puerto
     clientes.value = response.data.clientes.map((cliente: any) => ({
       // Campos básicos
       id_cliente: cliente.id_cliente,
@@ -349,18 +349,18 @@ onMounted(() => {
 // ----------------CODIGO PARA SELECCIONAR UNA FILA DE LA TABLA PARA MODIFICARLA--------------------------------|
 
 const selectedItem = ref<Cliente>({
-  id_cliente: 1, // eslint-disable-line camelcase
-  tipo_documento: { descripcion: '' }, // ← cambio aquí
-  numero_identificacion: '', // eslint-disable-line camelcase
-  tipo_contribuyente: { descripcion: '' }, // ← cambio aquí
-  razon_social: '', // eslint-disable-line camelcase
+  id_cliente: 0,
+  tipo_documento: { descripcion: '' },
+  numero_identificacion: '',
+  tipo_contribuyente: { descripcion: '' },
+  razon_social: '',
   direccion: '',
-  ciudad: { nombre: '' }, // ← cambio aquí
+  ciudad: { nombre: '' },
   telefono: '',
   correo: '',
-  empresa: { nombre: '' }, // ← cambio aquí
-  cuenta_local: '', // eslint-disable-line camelcase
-  cuenta_extranjera: '', // eslint-disable-line camelcase
+  empresa: { nombre: '' },
+  cuenta_local: '',
+  cuenta_extranjera: '',
   estado: ''
 }) // Variable para almacenar el elemento seleccionado
 
@@ -403,7 +403,7 @@ const eliminar = async (item: Cliente) => {
         const token = localStorage.getItem('token') // O usa Vuex o cualquier otro método para obtenerlo
 
         if (!token) {
-          Swal.fire('Error', 'Debes iniciar sesión para eliminar empresas.', 'error')
+          Swal.fire('Error', 'Debes iniciar sesión para eliminar clientes.', 'error')
           return
         }
 
@@ -415,7 +415,7 @@ const eliminar = async (item: Cliente) => {
         }
         console.log('token:', token)
         // Realizar la solicitud DELETE a la API
-        const response = await axios.delete(`http://localhost:8080/api/cliente/${item.id_cliente}`, config)
+        const response = await axios.delete(`http://localhost:3000/api/cliente/${item.id_cliente}`, config)
         console.log('Respuesta de la API:', response) // Verificar la respuesta de la API
 
         // Forzar la actualización de la tabla con DataTable

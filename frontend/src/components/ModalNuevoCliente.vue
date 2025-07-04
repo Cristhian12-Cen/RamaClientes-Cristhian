@@ -1,5 +1,5 @@
 <template>
-  <!-- Modal de CARGAR UNA NUEVA EMPRESA -->
+  <!-- Modal de CARGAR UN NUEVO CLIENTE -->
   <div class="modal fade show d-block" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content text-white p-4" style="background-color: #4F4F75; border-radius: 10px;">
@@ -16,33 +16,33 @@
 
               <!-- Tipo documento -->
               <div class="col-md-6 mb-3 ms-auto text-start">
-                <label for="rol" class="form-label">Tipo documento</label>
-                <select id="rol" name="rol" v-model="cliente.tipo_documento" :class="['form-control', { 'is-invalid': errores.tipo_documento }]" required>
+                <label for="tipo_documento" class="form-label">Tipo documento</label>
+                <select id="tipo_documento" name="tipo_documento" v-model="cliente.id_tipo_documento" :class="['form-control', { 'is-invalid': errores.id_tipo_documento }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="docs in documentoDESCP" :key="docs.tipo_documento" :value="docs.tipo_documento">
-                    {{ docs.descripcion || 'Sin rol' }} <!-- Mostrar un mensaje si no hay nombre -->
+                  <option v-for="docs in documentoDESCP" :key="docs.id_tipo_documento" :value="docs.id_tipo_documento">
+                    {{ docs.descripcion || 'Sin descripción' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.tipo_documento }}
+                  {{ errores.id_tipo_documento }}
                 </div>
               </div>
 
               <!-- Tipo Contribuyente -->
               <div class="col-md-6 mb-3 ms-auto text-start">
-                <label for="rol" class="form-label">Tipo Contribuyente</label>
-                <select id="rol" name="rol" v-model="cliente.tipo_contribuyente" :class="['form-control', { 'is-invalid': errores.tipo_contribuyente }]" required>
+                <label for="tipo_contribuyente" class="form-label">Tipo Contribuyente</label>
+                <select id="tipo_contribuyente" name="tipo_contribuyente" v-model="cliente.id_tipo_contribuyente" :class="['form-control', { 'is-invalid': errores.id_tipo_contribuyente }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.tipo_contribuyente" :value="contribuyentes.tipo_contribuyente">
-                    {{ contribuyentes.descripcion || 'Sin rol' }} <!-- Mostrar un mensaje si no hay nombre -->
+                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.id_tipo_contribuyente" :value="contribuyentes.id_tipo_contribuyente">
+                    {{ contribuyentes.descripcion || 'Sin descripción' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.tipo_contribuyente }}
+                  {{ errores.id_tipo_contribuyente }}
                 </div>
               </div>
 
-              <!-- NOMBRE -->
+              <!-- NUMERO IDENTIFICACION -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="numero_identificacion" class="form-label">N° IDENTIFICACION</label>
                 <input type="text" id="numero_identificacion" v-model="cliente.numero_identificacion" :class="['form-control', { 'is-invalid': errores.numero_identificacion }]"
@@ -66,66 +66,75 @@
               <div class="col-md-6 mb-3 text-start">
                 <label for="correo" class="form-label">Correo</label>
                 <input type="email" id="correo" v-model="cliente.correo" :class="['form-control', { 'is-invalid': errores.correo }]"
-                  placeholder="" required>
+                  placeholder="ejemplo@correo.com" required>
                 <div class="invalid-feedback">
                   {{ errores.correo }}
                 </div>
               </div>
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
+
+              <!-- RAZON SOCIAL -->
+              <div class="col-md-6 mb-3 text-start">
                 <label for="razon_social" class="form-label">RAZON SOCIAL</label>
-                <input type="" id="razon_social" v-model="cliente.razon_social" :class="['form-control', { 'is-invalid': errores.razon_social }]"
-                  placeholder="" required>
+                <input type="text" id="razon_social" v-model="cliente.razon_social" :class="['form-control', { 'is-invalid': errores.razon_social }]"
+                  placeholder="Ingrese la razón social" required>
                 <div class="invalid-feedback">
                   {{ errores.razon_social }}
                 </div>
               </div>
 
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
+              <!-- DIRECCION -->
+              <div class="col-md-6 mb-3 text-start">
                 <label for="direccion" class="form-label">DIRECCION</label>
-                <input type="" id="direccion" v-model="cliente.direccion" :class="['form-control', { 'is-invalid': errores.direccion }]"
-                  placeholder="" required>
+                <input type="text" id="direccion" v-model="cliente.direccion" :class="['form-control', { 'is-invalid': errores.direccion }]"
+                  placeholder="Ingrese la dirección" required>
                 <div class="invalid-feedback">
                   {{ errores.direccion }}
                 </div>
               </div>
 
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
+              <!-- CIUDAD -->
+              <div class="col-md-6 mb-3 text-start">
                 <label for="ciudad" class="form-label">CIUDAD</label>
-                <input type="" id="ciudad" v-model="cliente.ciudad" :class="['form-control', { 'is-invalid': errores.ciudad }]"
-                  placeholder="" required>
+                <select id="ciudad" name="ciudad" v-model="cliente.id_ciudad" :class="['form-control', { 'is-invalid': errores.id_ciudad }]" required>
+                  <option value="0" disabled>Seleccionar</option>
+                  <option v-for="ciudad in ciudades" :key="ciudad.id_ciudad" :value="ciudad.id_ciudad">
+                    {{ ciudad.nombre || 'Sin nombre' }}
+                  </option>
+                </select>
                 <div class="invalid-feedback">
-                  {{ errores.ciudad }}
+                  {{ errores.id_ciudad }}
                 </div>
               </div>
 
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
+              <!-- EMPRESA -->
+              <div class="col-md-6 mb-3 text-start">
                 <label for="empresa" class="form-label">EMPRESA</label>
-                <input type="" id="empresa" v-model="cliente.empresa" :class="['form-control', { 'is-invalid': errores.empresa }]"
-                  placeholder="" required>
+                <select id="empresa" name="empresa" v-model="cliente.id_empresa" :class="['form-control', { 'is-invalid': errores.id_empresa }]" required>
+                  <option value="0" disabled>Seleccionar</option>
+                  <option v-for="empresa in empresas" :key="empresa.id_empresa" :value="empresa.id_empresa">
+                    {{ empresa.nombre || 'Sin nombre' }}
+                  </option>
+                </select>
                 <div class="invalid-feedback">
-                  {{ errores.empresa }}
+                  {{ errores.id_empresa }}
                 </div>
               </div>
 
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
-                <label for="correo" class="form-label">CUENTA LOCAL</label>
-                <input type="" id="correo" v-model="cliente.cuenta_local" :class="['form-control', { 'is-invalid': errores.cuenta_local }]"
-                  placeholder="" required>
+              <!-- CUENTA LOCAL -->
+              <div class="col-md-6 mb-3 text-start">
+                <label for="cuenta_local" class="form-label">CUENTA LOCAL</label>
+                <input type="text" id="cuenta_local" v-model="cliente.cuenta_local" :class="['form-control', { 'is-invalid': errores.cuenta_local }]"
+                  placeholder="Ingrese la cuenta local" required>
                 <div class="invalid-feedback">
-                  {{ errores.correo }}
+                  {{ errores.cuenta_local }}
                 </div>
               </div>
 
-                <!-- CORREO -->
-                <div class="col-md-6 mb-3 text-start">
+              <!-- CUENTA EXTRANJERA -->
+              <div class="col-md-6 mb-3 text-start">
                 <label for="cuenta_extranjera" class="form-label">CUENTA EXTRANJERA</label>
-                <input type="" id="cuenta_extranjera" v-model="cliente.cuenta_extranjera" :class="['form-control', { 'is-invalid': errores.cuenta_extranjera }]"
-                  placeholder="" required>
+                <input type="text" id="cuenta_extranjera" v-model="cliente.cuenta_extranjera" :class="['form-control', { 'is-invalid': errores.cuenta_extranjera }]"
+                  placeholder="Ingrese la cuenta extranjera" required>
                 <div class="invalid-feedback">
                   {{ errores.cuenta_extranjera }}
                 </div>
@@ -152,8 +161,6 @@ import { useRouter } from 'vue-router'
 // Importar libreria de alertas
 import Swal from 'sweetalert2'
 
-// ----------------- IMPORTAR CON EL SERVIDOR CON AXIOS------------------------
-
 // 1ro importar la libreria de Axios
 import axios from 'axios'
 
@@ -167,97 +174,98 @@ const props = defineProps({
   cliente: Object // para recibir los datos del cliente desde la tabla
 })
 
-const cliente = ref({ ...props.cliente }) // Crear una referencia reactiva a los datos de la empresa
+const cliente = ref({ ...props.cliente }) // Crear una referencia reactiva a los datos del cliente
 
 const cerrarModal = () => {
   Swal.fire({
     title: '¿Está seguro de que desea cancelar la carga?',
     icon: 'warning',
-    showCancelButton: true, // Muestra el botón de cancelar
+    showCancelButton: true,
     confirmButtonText: 'Aceptar',
     cancelButtonText: 'Cancelar',
-    reverseButtons: true // Invierte el orden de los botones (Aceptar primero, Cancelar después)
+    reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
-      // Si el cliente hace clic en "Aceptar"
       makeToast('Éxito', 'La acción ha sido cancelada correctamente', 'success')
-      emit('cerrar') // Emitimos el evento para que el padre lo maneje y cierre el modal
+      emit('cerrar')
     }
   })
 }
 
-/* -------------------VALIDACIONES---------------------- */
-// Validar formulario
-/* const validarFormulario = (event: Event) => {
-  event.preventDefault()
-
-  const form = document.getElementById('formcliente') as HTMLFormElement | null
-  if (!form) return // Detiene la ejecución si form es null
-
-  if (!form.checkValidity()) {
-    event.stopPropagation()
-  }
-
-  form.classList.add('was-validated')
-}
-
-// Ejecutar validación al montar el componente
-onMounted(() => {
-  const form = document.getElementById('formcliente') as HTMLFormElement | null
-  if (!form) return // Asegurar que form no es null antes de agregar el event listener
-
-  form.addEventListener('submit', validarFormulario)
-}) */
+// VALIDACIONES
 const enviado = ref(false)
 
 const errores = ref({
   numero_identificacion: '',
-  tipo_contribuyente: '',
+  id_tipo_contribuyente: '',
   telefono: '',
   correo: '',
-  empresa: '',
+  id_empresa: '',
   cuenta_extranjera: '',
   cuenta_local: '',
-  ciudad: '',
+  id_ciudad: '',
   direccion: '',
   razon_social: '',
-  tipo_documento: ''
+  id_tipo_documento: ''
 })
 
 const validarnumeroIDENTIFICACION = () => {
   if (!cliente.value.numero_identificacion || typeof cliente.value.numero_identificacion !== 'string') {
-    return 'Por favor, ingrese el número de cédula.'
+    return 'Por favor, ingrese el número de identificación.'
   }
   const ced = cliente.value.numero_identificacion.trim()
-  if (!/^\d{6,10}$/.test(ced)) return 'La cédula debe contener entre 6 y 10 dígitos numéricos.'
+  if (!/^\d{6,15}$/.test(ced)) return 'La identificación debe contener entre 6 y 15 dígitos numéricos.'
   cliente.value.numero_identificacion = ced
   return ''
 }
 
-const soloNumeros = (campo: string, maxLong: number) => {
-  cliente.value[campo] = cliente.value[campo]
-    .replace(/\D/g, '') // elimina todo lo que no es dígito
-    .slice(0, maxLong) // recorta si se pasa del máximo
-}
 const soloNumerostelefono = (campo: string, maxLong: number) => {
   cliente.value[campo] = cliente.value[campo]
     .replace(/\D/g, '') // elimina todo lo que no es dígito
     .slice(0, maxLong) // recorta si se pasa del máximo
 }
 
+const validarTipoDocumento = () => {
+  if (!cliente.value.id_tipo_documento || cliente.value.id_tipo_documento === 0) {
+    return 'Por favor, seleccione un tipo de documento.'
+  }
+  return ''
+}
+
 const validarcontribuyente = () => {
-  if (!cliente.value.tipo_contribuyente || cliente.value.tipo_contribuyente === 0) {
-    return 'Por favor, seleccione un rol.'
+  if (!cliente.value.id_tipo_contribuyente || cliente.value.id_tipo_contribuyente === 0) {
+    return 'Por favor, seleccione un tipo de contribuyente.'
+  }
+  return ''
+}
+
+const validarCiudad = () => {
+  if (!cliente.value.id_ciudad || cliente.value.id_ciudad === 0) {
+    return 'Por favor, seleccione una ciudad.'
+  }
+  return ''
+}
+
+const validarEmpresa = () => {
+  if (!cliente.value.id_empresa || cliente.value.id_empresa === 0) {
+    return 'Por favor, seleccione una empresa.'
   }
   return ''
 }
 
 const razonSOCIAL = () => {
-  const razon_social = cliente.value.razon_social.trim().replace(/\s+/g, ' ') // eslint-disable-line camelcase
-  if (!razon_social) return 'Por favor, ingrese la razon social.' // eslint-disable-line camelcase
-  if (razon_social.length < 3) return ' debe tener al menos 6 caracteres.'
-  if (!/^[A-Za-zÁÉÍÓÚÑáéíóúñ ]+$/.test(razon_social)) return 'Solo se permiten letras.'
-  cliente.value.razon_social = razon_social // eslint-disable-line camelcase
+  const razon_social = cliente.value.razon_social.trim().replace(/\s+/g, ' ')
+  if (!razon_social) return 'Por favor, ingrese la razón social.'
+  if (razon_social.length < 3) return 'Debe tener al menos 3 caracteres.'
+  cliente.value.razon_social = razon_social
+  return ''
+}
+
+const validarDireccion = () => {
+  const direccion = cliente.value.direccion.trim().replace(/\s+/g, ' ')
+  if (!direccion) return 'Por favor, ingrese la dirección.'
+  if (direccion.length < 5) return 'Debe tener al menos 5 caracteres.'
+  cliente.value.direccion = direccion
   return ''
 }
 
@@ -278,25 +286,36 @@ const validarCorreo = () => {
   return ''
 }
 
-// ------------------------- FIN VALIDACIONES ------------------------|
+const validarCuentaLocal = () => {
+  const cuenta = cliente.value.cuenta_local.trim()
+  if (!cuenta) return 'Por favor, ingrese la cuenta local.'
+  cliente.value.cuenta_local = cuenta
+  return ''
+}
 
-// -----------------------VERIFICAR DUPLICADOS -----------------------|
+const validarCuentaExtranjera = () => {
+  const cuenta = cliente.value.cuenta_extranjera.trim()
+  if (!cuenta) return 'Por favor, ingrese la cuenta extranjera.'
+  cliente.value.cuenta_extranjera = cuenta
+  return ''
+}
 
+// VERIFICAR DUPLICADOS
 interface clienteDatos {
-  id_cliente: number // eslint-disable-line camelcase
-  numero_identificacion: string // eslint-disable-line camelcase
-  correo: string // eslint-disable-line camelcase
+  id_cliente: number
+  numero_identificacion: string
+  correo: string
 }
 
 const verificarclienteDuplicado = async () => {
   try {
-    const { data } = await axios.get('http://localhost:8080/api/cliente')
+    const { data } = await axios.get('http://localhost:3000/api/cliente')
     const clientesRegistrados = data.clientes
 
-    const numero_identificacion = cliente.value.numero_identificacion.trim() // eslint-disable-line camelcase
+    const numero_identificacion = cliente.value.numero_identificacion.trim()
     const correo = cliente.value.correo.trim().toLowerCase()
 
-    const numero_identificacionExistente = clientesRegistrados.some((u: clienteDatos) => u.numero_identificacion === numero_identificacion) // eslint-disable-line camelcase
+    const numero_identificacionExistente = clientesRegistrados.some((u: clienteDatos) => u.numero_identificacion === numero_identificacion)
     const correoExistente = clientesRegistrados.some((u: clienteDatos) => u.correo.toLowerCase() === correo)
 
     return { numero_identificacionExistente, correoExistente }
@@ -306,23 +325,20 @@ const verificarclienteDuplicado = async () => {
   }
 }
 
-// ----------------------FIN VERIFICAR DUPLICADOS --------------------|
-
-// ---------------------CONFIGURACION PAR EJECUTAR GUARDAR O MODIFICAR------------------------------------|
+// CONFIGURACION PARA EJECUTAR GUARDAR O MODIFICAR
 const guardarOmodificar = async () => {
-  /* if (cliente.value.id_cliente) {
-    // Si existe empresa, es una modificación
-    modificar()
-  } else {
-    // Si no existe, es un nuevo registro
-    guardar()
-  } */
   enviado.value = true
   errores.value.numero_identificacion = validarnumeroIDENTIFICACION()
-  errores.value.tipo_contribuyente = validarcontribuyente()
+  errores.value.id_tipo_documento = validarTipoDocumento()
+  errores.value.id_tipo_contribuyente = validarcontribuyente()
+  errores.value.id_ciudad = validarCiudad()
+  errores.value.id_empresa = validarEmpresa()
   errores.value.razon_social = razonSOCIAL()
+  errores.value.direccion = validarDireccion()
   errores.value.telefono = validarTelefono()
   errores.value.correo = validarCorreo()
+  errores.value.cuenta_local = validarCuentaLocal()
+  errores.value.cuenta_extranjera = validarCuentaExtranjera()
 
   const tieneErrores = Object.values(errores.value).some(e => e !== '')
   if (tieneErrores) {
@@ -333,10 +349,10 @@ const guardarOmodificar = async () => {
   if (cliente.value.id_cliente) {
     modificar()
   } else {
-    const { numero_identificacionExistente, correoExistente } = await verificarclienteDuplicado() // eslint-disable-line camelcase
-    if (numero_identificacionExistente) { // eslint-disable-line camelcase
-      errores.value.numero_identificacion = 'Ya existe un cliente con esta cédula.'
-      makeToast('Error', 'Cédula ya registrada.', 'error')
+    const { numero_identificacionExistente, correoExistente } = await verificarclienteDuplicado()
+    if (numero_identificacionExistente) {
+      errores.value.numero_identificacion = 'Ya existe un cliente con esta identificación.'
+      makeToast('Error', 'Identificación ya registrada.', 'error')
       return
     }
     if (correoExistente) {
@@ -349,52 +365,44 @@ const guardarOmodificar = async () => {
   }
 }
 
-// ---------------------HASTA ACÁ LA CONFIGURACION PAR EJECUTAR GUARDAR O MODIFICAR-----------------------|
-
-// -----------------CONFIGURACION DE AXIOS-------------------|
 // router para elegir donde volver a la hora de guardar
 const router = useRouter()
 
-// ------------------------FUNCION PARA GUARDAR LA EMPRESA EN LA BD---------------------------------------|
-
+// FUNCION PARA GUARDAR EL CLIENTE EN LA BD
 const guardar = async () => {
-  // Obtener el token del almacenamiento local
-  const token = localStorage.getItem('token') // O usa Vuex o cualquier otro método para obtenerlo
+  const token = localStorage.getItem('token')
 
-  // Configuración de los encabezados para incluir el token
   const config = {
     headers: {
-      Authorization: `Bearer ${token}` // Añadir el token al encabezado
+      Authorization: `Bearer ${token}`
     }
   }
 
   try {
-    const response = await axios.post('http://localhost:8080/api/cliente', {
-      numero_identificacion: cliente.value.numero_identificacion,
+    const response = await axios.post('http://localhost:3000/api/cliente', {
       razon_social: cliente.value.razon_social,
-      telefono: cliente.value.telefono,
+      numero_identificacion: cliente.value.numero_identificacion,
       direccion: cliente.value.direccion,
-      tipo_contribuyente: cliente.value.tipo_contribuyente,
-      ciudad: cliente.value.ciudad,
-      empresa: cliente.value.empresa,
-      tipo_documento: cliente.value.tipo_documento,
+      telefono: cliente.value.telefono,
+      correo: cliente.value.correo,
       cuenta_local: cliente.value.cuenta_local,
       cuenta_extranjera: cliente.value.cuenta_extranjera,
-      correo: cliente.value.correo,
+      id_tipo_documento: cliente.value.id_tipo_documento,
+      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
+      id_ciudad: cliente.value.id_ciudad,
+      id_empresa: cliente.value.id_empresa,
       estado: true
     }, config)
-    // mensajes de éxito
+
     console.log(response.data)
-    router.push('/client') // Redirigir a la página de cliente después de guardar
-    // Limpiar el formulario después de guardar
+    router.push('/client')
     limpiarFormulario()
     const formElement = document.getElementById('formcliente') as HTMLFormElement | null
     if (formElement) {
-      formElement.classList.remove('was-validated') // Quitar la clase 'was-validated' para evitar que se activen las validaciones después de limpiar
+      formElement.classList.remove('was-validated')
     }
     console.log('Datos enviados al backend para cargar cliente:', cliente.value)
-    // cerrar el modal
-    emit('cerrar') // Emitimos el evento para que el padre lo maneje y cierre el modal
+    emit('cerrar')
     makeToast('Éxito', 'El cliente se guardó correctamente', 'success')
     emit('actualizartabla')
   } catch (error) {
@@ -407,50 +415,41 @@ const guardar = async () => {
   }
 }
 
-// ---------------------------FIN FUNCION PARA GUARDAR LA EMPRESA EN LA BD--------------------------------|
-
-// ------------------------FUNCION PARA MODIFICAR LA EMPRESA EN LA BD---------------------------------------|
-
+// FUNCION PARA MODIFICAR EL CLIENTE EN LA BD
 const modificar = async () => {
   try {
-    // Obtener el token del almacenamiento local
-    const token = localStorage.getItem('token') // O usa Vuex o cualquier otro método para obtenerlo
+    const token = localStorage.getItem('token')
 
-    // Configuración de los encabezados para incluir el token
     const config = {
       headers: {
-        Authorization: `Bearer ${token}` // Añadir el token al encabezado
+        Authorization: `Bearer ${token}`
       }
     }
-    const response = await axios.put(`http://localhost:8080/api/cliente/${cliente.value.id_cliente}`, {
-      numero_identificacion: cliente.value.numero_identificacion,
+    const response = await axios.put(`http://localhost:3000/api/cliente/${cliente.value.id_cliente}`, {
       razon_social: cliente.value.razon_social,
-      telefono: cliente.value.telefono,
+      numero_identificacion: cliente.value.numero_identificacion,
       direccion: cliente.value.direccion,
-      tipo_contribuyente: cliente.value.tipo_contribuyente,
-      ciudad: cliente.value.ciudad,
-      empresa: cliente.value.empresa,
-      tipo_documento: cliente.value.tipo_documento,
+      telefono: cliente.value.telefono,
+      correo: cliente.value.correo,
       cuenta_local: cliente.value.cuenta_local,
       cuenta_extranjera: cliente.value.cuenta_extranjera,
-      correo: cliente.value.correo,
-      estado: true
+      id_tipo_documento: cliente.value.id_tipo_documento,
+      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
+      id_ciudad: cliente.value.id_ciudad,
+      id_empresa: cliente.value.id_empresa
     }, config)
-    // mensajes de éxito
+
     console.log(response.data)
-    router.push('/user') // Redirigir a la página de empresas después de guardar
-    // Limpiar el formulario después de guardar
+    router.push('/client')
     limpiarFormulario()
     const formElement = document.getElementById('formcliente') as HTMLFormElement | null
     if (formElement) {
-      formElement.classList.remove('was-validated') // Quitar la clase 'was-validated' para evitar que se activen las validaciones después de limpiar
+      formElement.classList.remove('was-validated')
     }
     console.log('Datos enviados al backend para modificar el cliente:', cliente.value)
 
-    // Actualizar el cliente modificado en la lista local
     emit('actualizartabla')
-    // cerrar el modal
-    emit('cerrar') // Emitimos el evento para que el padre lo maneje y cierre el modal
+    emit('cerrar')
     makeToast('Éxito', 'El cliente se modificó correctamente', 'success')
   } catch (error) {
     console.error('Error al modificar los datos del cliente en la base de datos:', error)
@@ -462,72 +461,103 @@ const modificar = async () => {
   }
 }
 
-// ------------------------FIN FUNCION PARA MODIFICAR LA EMPRESA EN LA BD-----------------------------------|
+// OBTENER DATOS DE LA BD PARA LOS SELECTS
 
-// ----------------------------OBTENER PERIODOS DE LA BD--------------------------------------------------|
-
-// Definir la estructura
+// Definir las estructuras
 interface TipoContribuyente {
-  tipo_contribuyente: number // eslint-disable-line camelcase
-  descripcion: string // eslint-disable-line camelcase
+  id_tipo_contribuyente: number
+  descripcion: string
 }
 
 interface TipoDocumento {
-  tipo_documento: number // eslint-disable-line camelcase
-  descripcion: string // eslint-disable-line camelcase
+  id_tipo_documento: number
+  descripcion: string
 }
 
-// Lista de períodos obtenidos de la BD
-const contriDESCP = ref<TipoContribuyente[]>([]) // eslint-disable-line camelcase
-const documentoDESCP = ref<TipoDocumento[]>([]) // eslint-disable-line camelcase
+interface Ciudad {
+  id_ciudad: number
+  nombre: string
+}
 
-const getRolByDB = async () => {
+interface Empresa {
+  id_empresa: number
+  nombre: string
+}
+
+// Listas obtenidas de la BD
+const contriDESCP = ref<TipoContribuyente[]>([])
+const documentoDESCP = ref<TipoDocumento[]>([])
+const ciudades = ref<Ciudad[]>([])
+const empresas = ref<Empresa[]>([])
+
+const getTiposContribuyentes = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/tipo_contribuyente')
+    const response = await axios.get('http://localhost:3000/api/tipos_contribuyentes')
     console.log('Datos obtenidos de la API para contribuyente:', response.data)
-    contriDESCP.value = response.data.contribuyentes // Almacenar la lista de períodos
+    contriDESCP.value = response.data.tipos_contribuyentes
   } catch (error) {
-    console.error(error) // Manejo de errores
-    makeToast('Error', 'Error al conseguir contribuyente', 'error')
+    console.error(error)
+    makeToast('Error', 'Error al conseguir tipos de contribuyentes', 'error')
   }
 }
 
-const getDOCUMENTOByDB = async () => {
+const getTiposDocumentos = async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/tipo_documento')
-    console.log('Datos obtenidos de la API para documento:', response.data)
-    documentoDESCP.value = response.data.docs // Almacenar la lista de períodos
+    const response = await axios.get('http://localhost:3000/api/tipos_documentos')
+    console.log('Datos obtenidos de la API para documentos:', response.data)
+    documentoDESCP.value = response.data.tipos_documentos
   } catch (error) {
-    console.error(error) // Manejo de errores
-    makeToast('Error', 'Error al conseguir documento', 'error')
+    console.error(error)
+    makeToast('Error', 'Error al conseguir tipos de documentos', 'error')
   }
 }
 
-// Llamar a la función al montar el componente
+const getCiudades = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/api/ciudades')
+    console.log('Datos obtenidos de la API para ciudades:', response.data)
+    ciudades.value = response.data.ciudades
+  } catch (error) {
+    console.error(error)
+    makeToast('Error', 'Error al conseguir ciudades', 'error')
+  }
+}
+
+const getEmpresas = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/api/empresas')
+    console.log('Datos obtenidos de la API para empresas:', response.data)
+    empresas.value = response.data.empresas
+  } catch (error) {
+    console.error(error)
+    makeToast('Error', 'Error al conseguir empresas', 'error')
+  }
+}
+
+// Llamar a las funciones al montar el componente
 onMounted(() => {
-  getRolByDB()
-  getDOCUMENTOByDB()
+  getTiposContribuyentes()
+  getTiposDocumentos()
+  getCiudades()
+  getEmpresas()
 })
 
-// --------------------------FIN DE OBTENER PERIODOS DE LA BD---------------------------------------------|
-
-// ---------------------------CODIGO PARA LIMPAR EL FORMULARIO -------------------------------------------|
+// CODIGO PARA LIMPIAR EL FORMULARIO
 const limpiarFormulario = () => {
   Object.assign(cliente.value, {
     numero_identificacion: '',
-    tipo_contribuyente: '',
+    id_tipo_contribuyente: 0,
     telefono: '',
     correo: '',
-    empresa: '',
+    id_empresa: 0,
     cuenta_extranjera: '',
     cuenta_local: '',
-    ciudad: '',
+    id_ciudad: 0,
     direccion: '',
     razon_social: '',
-    tipo_documento: ''
+    id_tipo_documento: 0
   })
 }
-// ---------------------------FIN CODIGO PARA LIMPAR EL FORMULARIO --------------------------------------------------
 
 // Función para mostrar toasts (mensaje emergente)
 const makeToast = (titulo: string, texto: string, tipo: 'success' | 'error' | 'warning' | 'info' | 'question') => {
@@ -535,11 +565,10 @@ const makeToast = (titulo: string, texto: string, tipo: 'success' | 'error' | 'w
   Swal.fire({
     title: titulo,
     text: texto,
-    icon: tipo, // 'success', 'error', 'warning', 'info', 'question'
-    // confirmButtonText: 'OK',
-    position: 'center', // Posición del Toast
-    timer: 3000, // Duración antes de cerrarse automáticamente (en milisegundos)
-    showConfirmButton: false // Para mostrar un botón de confirmación
+    icon: tipo,
+    position: 'center',
+    timer: 3000,
+    showConfirmButton: false
   })
 }
 

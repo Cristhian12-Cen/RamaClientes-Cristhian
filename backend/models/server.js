@@ -14,6 +14,9 @@ class Server {
         this.rolesR = '/api/roles';
         this.periodosR = '/api/periodos';
         this.clientesR = '/api/cliente';
+        this.ciudadesR = '/api/ciudades';
+        this.tiposContribuyentesR = '/api/tipos_contribuyentes';
+        this.tiposDocumentosR = '/api/tipos_documentos';
         this.dbConnection();
         this.middleware();
 
@@ -45,6 +48,9 @@ class Server {
         this.app.use(this.rolesR, require('./../routes/roles'));
         this.app.use(this.periodosR, require('./../routes/periodos'));
         this.app.use(this.clientesR, require('./../routes/clientes'));
+        this.app.use(this.ciudadesR, require('./../routes/ciudades'));
+        this.app.use(this.tiposContribuyentesR, require('./../routes/tipos_contribuyentes'));
+        this.app.use(this.tiposDocumentosR, require('./../routes/tipos_documentos'));
     }
 
     

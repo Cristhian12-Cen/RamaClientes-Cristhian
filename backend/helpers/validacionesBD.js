@@ -1,6 +1,10 @@
 const Rol = require("../models/rol");
 const Usuario = require("../models/usuario");
 const Empresa = require("../models/empresa");
+const Cliente = require("../models/cliente");
+const Ciudad = require("../models/ciudad");
+const TipoDocumento = require("../models/tipo_documento");
+const TipoContribuyente = require("../models/tipo_contribuyente");
 const { Op } = require('sequelize');
 
     
@@ -46,10 +50,46 @@ const existeEmpresaId = async (id="")=>{
     }
 }
 
+const existeClienteId = async (id="")=>{
+    const cliente = await Cliente.findByPk(id);
+
+    if(!cliente){//error personalizado que va a ser capturado en el custom
+        throw new Error(`No existe cliente con id: ${id}`);
+    }
+}
+
+const existeCiudadId = async (id="")=>{
+    const ciudad = await Ciudad.findByPk(id);
+
+    if(!ciudad){//error personalizado que va a ser capturado en el custom
+        throw new Error(`No existe ciudad con id: ${id}`);
+    }
+}
+
+const existeTipoDocumentoId = async (id="")=>{
+    const tipoDocumento = await TipoDocumento.findByPk(id);
+
+    if(!tipoDocumento){//error personalizado que va a ser capturado en el custom
+        throw new Error(`No existe tipo de documento con id: ${id}`);
+    }
+}
+
+const existeTipoContribuyenteId = async (id="")=>{
+    const tipoContribuyente = await TipoContribuyente.findByPk(id);
+
+    if(!tipoContribuyente){//error personalizado que va a ser capturado en el custom
+        throw new Error(`No existe tipo de contribuyente con id: ${id}`);
+    }
+}
+
 module.exports = {
     existeRol,
     existePeriodo,
     existeCorreo,
     existeUsuarioId,
-    existeEmpresaId
+    existeEmpresaId,
+    existeClienteId,
+    existeCiudadId,
+    existeTipoDocumentoId,
+    existeTipoContribuyenteId
 }
