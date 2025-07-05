@@ -16,13 +16,13 @@
   ----------------ESTE CODIGO UTILIZA PROPS PARA COMUNICARSE CON GestCompany.vue------------------
 
   ---¿QUÉ SON LOS Props?
-  Los props son como mensajes que un componente en este caso ModalCompany.vue recibe de su “padre” GestCompany.vue
+  Los props son como mensajes que un componente en este caso ModalCompany.vue recibe de su "padre" GestCompany.vue
 
   Sirven para que un componente hijo, por ejemplo, un modal o una tarjeta,
   reciba indicaciones de su padre como por ejemplo necesitá que ese componente hijo muestre información distinta
   según lo que diga el componente padre que lo está usando.
 
-  Entonces… el componente padre GestCompany.vue le manda “props” al componente hijo ModalCompany.vue para decirle:
+  Entonces… el componente padre GestCompany.vue le manda "props" al componente hijo ModalCompany.vue para decirle:
   ➡️ "Mostrá este título",
   ➡️ "Usá este color",
   ➡️ "Trabajá con estos datos", etc.
@@ -310,7 +310,7 @@ const verificarDuplicados = async () => {
 // consultar empresas en la bd
 const companyConsult = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/empresas')
+    const response = await axios.get('http://localhost:8080/api/empresas')
     return response.data.empresas
   } catch (error) {
     console.error('Error al obtener los datos de la empresa:', error)
@@ -373,7 +373,7 @@ const guardar = async () => {
       }
     }
 
-    const response = await axios.post('http://localhost:3000/api/empresas', {
+    const response = await axios.post('http://localhost:8080/api/empresas', {
       empresa: empresa.value.empresa,
       sigla: empresa.value.sigla,
       id_periodo: empresa.value.id_periodo,
@@ -425,7 +425,7 @@ const modificar = async () => {
       }
     }
 
-    const response = await axios.put(`http://localhost:3000/api/empresas/${empresa.value.id_empresa}`, {
+    const response = await axios.put(`http://localhost:8080/api/empresas/${empresa.value.id_empresa}`, {
       empresa: empresa.value.empresa,
       sigla: empresa.value.sigla,
       id_periodo: empresa.value.id_periodo
@@ -470,7 +470,7 @@ const periodos = ref<Periodo[]>([])
 
 const getPeriodoByDB = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/periodos')
+    const response = await axios.get('http://localhost:8080/api/periodos')
     console.log('Datos obtenidos de la API para periodos:', response.data.periodos)
     periodos.value = response.data.periodos // Almacenar la lista de períodos
   } catch (error) {

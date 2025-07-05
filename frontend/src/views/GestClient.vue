@@ -183,7 +183,7 @@ const cerrarModal = () => {
 
 const recargartabla = () => {
   // Llamar al backend para obtener los clientes actualizados
-  axios.get('http://localhost:3000/api/cliente')
+  axios.get('http://localhost:8080/api/cliente')
     .then(response => {
       clientes.value = response.data.clientes.map((cliente: any) => ({
         // Campos básicos
@@ -308,7 +308,7 @@ const clientes = ref<Cliente[]>([]) // Aquí se almacenarán los clientes desde 
 
 const getCliente = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/cliente') // Corregido el puerto
+    const response = await axios.get('http://localhost:8080/api/cliente')
     clientes.value = response.data.clientes.map((cliente: any) => ({
       // Campos básicos
       id_cliente: cliente.id_cliente,
@@ -415,7 +415,7 @@ const eliminar = async (item: Cliente) => {
         }
         console.log('token:', token)
         // Realizar la solicitud DELETE a la API
-        const response = await axios.delete(`http://localhost:3000/api/cliente/${item.id_cliente}`, config)
+        const response = await axios.delete(`http://localhost:8080/api/cliente/${item.id_cliente}`, config)
         console.log('Respuesta de la API:', response) // Verificar la respuesta de la API
 
         // Forzar la actualización de la tabla con DataTable

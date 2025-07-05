@@ -84,8 +84,8 @@
                -- v-for es una directiva de Vue.js Se usa para renderizar (mostrar) listas de elementos repitiendo una parte del HTML por cada ítem en una colección
                (como un array).
                entonces lo que pasa acá es que:
-               v-for="item in items" :key="item.id_empresa : se itera en un array que dice: “Por cada item dentro del array items, repite este bloque HTML, y usa item.id_empresa como clave
-               única para que Vue sepa cuál es cuál.” -->
+               v-for="item in items" :key="item.id_empresa : se itera en un array que dice: "Por cada item dentro del array items, repite este bloque HTML, y usa item.id_empresa como clave
+               única para que Vue sepa cuál es cuál." -->
               <tr v-for="item in items" :key="item.id_empresa">
                 <td class="number">{{ item.id_empresa /* eslint-disable-line camelcase */ }}</td>
                 <td>{{ item.empresa }}</td>

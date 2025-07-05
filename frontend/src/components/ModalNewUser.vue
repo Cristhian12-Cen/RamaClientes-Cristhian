@@ -221,7 +221,7 @@ interface UsuarioDatos {
 
 const verificarUsuarioDuplicado = async () => {
   try {
-    const { data } = await axios.get('http://localhost:3000/api/usuarios')
+    const { data } = await axios.get('http://localhost:8080/api/usuarios')
     const usuariosRegistrados = data.usuarios
 
     const cedula = usuario.value.cedula.trim()
@@ -300,7 +300,7 @@ const guardar = async () => {
   }
 
   try {
-    const response = await axios.post('http://localhost:3000/api/usuarios', {
+    const response = await axios.post('http://localhost:8080/api/usuarios', {
       cedula: usuario.value.cedula,
       nombre: usuario.value.nombre,
       telefono: usuario.value.telefono,
@@ -348,7 +348,7 @@ const modificar = async () => {
         Authorization: `Bearer ${token}` // Añadir el token al encabezado
       }
     }
-    const response = await axios.put(`http://localhost:3000/api/usuarios/${usuario.value.id_usuario}`, {
+    const response = await axios.put(`http://localhost:8080/api/usuarios/${usuario.value.id_usuario}`, {
       nombre: usuario.value.nombre,
       cedula: usuario.value.cedula,
       correo: usuario.value.correo,
@@ -396,7 +396,7 @@ const rolesuser = ref<Rol[]>([])
 
 const getRolByDB = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/roles')
+    const response = await axios.get('http://localhost:8080/api/roles')
     console.log('Datos obtenidos de la API para roles:', response.data)
     rolesuser.value = response.data.roles // Almacenar la lista de períodos
   } catch (error) {

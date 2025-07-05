@@ -309,7 +309,7 @@ interface clienteDatos {
 
 const verificarclienteDuplicado = async () => {
   try {
-    const { data } = await axios.get('http://localhost:3000/api/cliente')
+    const { data } = await axios.get('http://localhost:8080/api/cliente')
     const clientesRegistrados = data.clientes
 
     const numero_identificacion = cliente.value.numero_identificacion.trim()
@@ -379,7 +379,7 @@ const guardar = async () => {
   }
 
   try {
-    const response = await axios.post('http://localhost:3000/api/cliente', {
+    const response = await axios.post('http://localhost:8080/api/cliente', {
       razon_social: cliente.value.razon_social,
       numero_identificacion: cliente.value.numero_identificacion,
       direccion: cliente.value.direccion,
@@ -425,7 +425,7 @@ const modificar = async () => {
         Authorization: `Bearer ${token}`
       }
     }
-    const response = await axios.put(`http://localhost:3000/api/cliente/${cliente.value.id_cliente}`, {
+    const response = await axios.put(`http://localhost:8080/api/cliente/${cliente.value.id_cliente}`, {
       razon_social: cliente.value.razon_social,
       numero_identificacion: cliente.value.numero_identificacion,
       direccion: cliente.value.direccion,
@@ -492,7 +492,7 @@ const empresas = ref<Empresa[]>([])
 
 const getTiposContribuyentes = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/tipos_contribuyentes')
+    const response = await axios.get('http://localhost:8080/api/tipos_contribuyentes')
     console.log('Datos obtenidos de la API para contribuyente:', response.data)
     contriDESCP.value = response.data.tipos_contribuyentes
   } catch (error) {
@@ -503,7 +503,7 @@ const getTiposContribuyentes = async () => {
 
 const getTiposDocumentos = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/tipos_documentos')
+    const response = await axios.get('http://localhost:8080/api/tipos_documentos')
     console.log('Datos obtenidos de la API para documentos:', response.data)
     documentoDESCP.value = response.data.tipos_documentos
   } catch (error) {
@@ -514,7 +514,7 @@ const getTiposDocumentos = async () => {
 
 const getCiudades = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/ciudades')
+    const response = await axios.get('http://localhost:8080/api/ciudades')
     console.log('Datos obtenidos de la API para ciudades:', response.data)
     ciudades.value = response.data.ciudades
   } catch (error) {
@@ -525,7 +525,7 @@ const getCiudades = async () => {
 
 const getEmpresas = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/empresas')
+    const response = await axios.get('http://localhost:8080/api/empresas')
     console.log('Datos obtenidos de la API para empresas:', response.data)
     empresas.value = response.data.empresas
   } catch (error) {
