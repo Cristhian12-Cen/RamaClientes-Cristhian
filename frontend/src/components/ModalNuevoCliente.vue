@@ -17,38 +17,38 @@
               <!-- Tipo documento -->
               <div class="col-md-6 mb-3 ms-auto text-start">
                 <label for="tipo_documento" class="form-label">Tipo documento</label>
-                <select id="tipo_documento" name="tipo_documento" v-model="cliente.id_tipo_documento" :class="['form-control', { 'is-invalid': errores.id_tipo_documento }]" required>
+                <select id="tipo_documento" name="tipo_documento" v-model="cliente.idTipoDocumento" :class="['form-control', { 'is-invalid': errores.idTipoDocumento }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="docs in documentoDESCP" :key="docs.id_tipo_documento" :value="docs.id_tipo_documento">
+                  <option v-for="docs in documentoDESCP" :key="docs.idTipoDocumento" :value="docs.idTipoDocumento">
                     {{ docs.descripcion || 'Sin descripción' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_tipo_documento }}
+                  {{ errores.idTipoDocumento }}
                 </div>
               </div>
 
               <!-- Tipo Contribuyente -->
               <div class="col-md-6 mb-3 ms-auto text-start">
                 <label for="tipo_contribuyente" class="form-label">Tipo Contribuyente</label>
-                <select id="tipo_contribuyente" name="tipo_contribuyente" v-model="cliente.id_tipo_contribuyente" :class="['form-control', { 'is-invalid': errores.id_tipo_contribuyente }]" required>
+                <select id="tipo_contribuyente" name="tipo_contribuyente" v-model="cliente.idTipoContribuyente" :class="['form-control', { 'is-invalid': errores.idTipoContribuyente }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.id_tipo_contribuyente" :value="contribuyentes.id_tipo_contribuyente">
+                  <option v-for="contribuyentes in contriDESCP" :key="contribuyentes.idTipoContribuyente" :value="contribuyentes.idTipoContribuyente">
                     {{ contribuyentes.descripcion || 'Sin descripción' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_tipo_contribuyente }}
+                  {{ errores.idTipoContribuyente }}
                 </div>
               </div>
 
               <!-- NUMERO IDENTIFICACION -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="numero_identificacion" class="form-label">N° IDENTIFICACION</label>
-                <input type="text" id="numero_identificacion" v-model="cliente.numero_identificacion" :class="['form-control', { 'is-invalid': errores.numero_identificacion }]"
+                <input type="text" id="numero_identificacion" v-model="cliente.numeroIdentificacion" :class="['form-control', { 'is-invalid': errores.numeroIdentificacion }]"
                   placeholder="Ingrese el numero de identificacion" required>
                 <div class="invalid-feedback">
-                  {{ errores.numero_identificacion }}
+                  {{ errores.numeroIdentificacion }}
                 </div>
               </div>
 
@@ -75,10 +75,10 @@
               <!-- RAZON SOCIAL -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="razon_social" class="form-label">RAZON SOCIAL</label>
-                <input type="text" id="razon_social" v-model="cliente.razon_social" :class="['form-control', { 'is-invalid': errores.razon_social }]"
+                <input type="text" id="razon_social" v-model="cliente.razonSocial" :class="['form-control', { 'is-invalid': errores.razonSocial }]"
                   placeholder="Ingrese la razón social" required>
                 <div class="invalid-feedback">
-                  {{ errores.razon_social }}
+                  {{ errores.razonSocial }}
                 </div>
               </div>
 
@@ -95,48 +95,48 @@
               <!-- CIUDAD -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="ciudad" class="form-label">CIUDAD</label>
-                <select id="ciudad" name="ciudad" v-model="cliente.id_ciudad" :class="['form-control', { 'is-invalid': errores.id_ciudad }]" required>
+                <select id="ciudad" name="ciudad" v-model="cliente.idCiudad" :class="['form-control', { 'is-invalid': errores.idCiudad }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="ciudad in ciudades" :key="ciudad.id_ciudad" :value="ciudad.id_ciudad">
+                  <option v-for="ciudad in ciudades" :key="ciudad.idCiudad" :value="ciudad.idCiudad">
                     {{ ciudad.nombre || 'Sin nombre' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_ciudad }}
+                  {{ errores.idCiudad }}
                 </div>
               </div>
 
               <!-- EMPRESA -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="empresa" class="form-label">EMPRESA</label>
-                <select id="empresa" name="empresa" v-model="cliente.id_empresa" :class="['form-control', { 'is-invalid': errores.id_empresa }]" required>
+                <select id="empresa" name="empresa" v-model="cliente.idEmpresa" :class="['form-control', { 'is-invalid': errores.idEmpresa }]" required>
                   <option value="0" disabled>Seleccionar</option>
-                  <option v-for="empresa in empresas" :key="empresa.id_empresa" :value="empresa.id_empresa">
+                  <option v-for="empresa in empresas" :key="empresa.idEmpresa" :value="empresa.idEmpresa">
                     {{ empresa.nombre || 'Sin nombre' }}
                   </option>
                 </select>
                 <div class="invalid-feedback">
-                  {{ errores.id_empresa }}
+                  {{ errores.idEmpresa }}
                 </div>
               </div>
 
               <!-- CUENTA LOCAL -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="cuenta_local" class="form-label">CUENTA LOCAL</label>
-                <input type="text" id="cuenta_local" v-model="cliente.cuenta_local" :class="['form-control', { 'is-invalid': errores.cuenta_local }]"
+                <input type="text" id="cuenta_local" v-model="cliente.cuentaLocal" :class="['form-control', { 'is-invalid': errores.cuentaLocal }]"
                   placeholder="Ingrese la cuenta local" required>
                 <div class="invalid-feedback">
-                  {{ errores.cuenta_local }}
+                  {{ errores.cuentaLocal }}
                 </div>
               </div>
 
               <!-- CUENTA EXTRANJERA -->
               <div class="col-md-6 mb-3 text-start">
                 <label for="cuenta_extranjera" class="form-label">CUENTA EXTRANJERA</label>
-                <input type="text" id="cuenta_extranjera" v-model="cliente.cuenta_extranjera" :class="['form-control', { 'is-invalid': errores.cuenta_extranjera }]"
+                <input type="text" id="cuenta_extranjera" v-model="cliente.cuentaExtranjera" :class="['form-control', { 'is-invalid': errores.cuentaExtranjera }]"
                   placeholder="Ingrese la cuenta extranjera" required>
                 <div class="invalid-feedback">
-                  {{ errores.cuenta_extranjera }}
+                  {{ errores.cuentaExtranjera }}
                 </div>
               </div>
             </div>
@@ -196,26 +196,26 @@ const cerrarModal = () => {
 const enviado = ref(false)
 
 const errores = ref({
-  numero_identificacion: '',
-  id_tipo_contribuyente: '',
+  numeroIdentificacion: '',
+  idTipoContribuyente: '',
   telefono: '',
   correo: '',
-  id_empresa: '',
-  cuenta_extranjera: '',
-  cuenta_local: '',
-  id_ciudad: '',
+  idEmpresa: '',
+  cuentaExtranjera: '',
+  cuentaLocal: '',
+  idCiudad: '',
   direccion: '',
-  razon_social: '',
-  id_tipo_documento: ''
+  razonSocial: '',
+  idTipoDocumento: ''
 })
 
 const validarnumeroIDENTIFICACION = () => {
-  if (!cliente.value.numero_identificacion || typeof cliente.value.numero_identificacion !== 'string') {
+  if (!cliente.value.numeroIdentificacion || typeof cliente.value.numeroIdentificacion !== 'string') {
     return 'Por favor, ingrese el número de identificación.'
   }
-  const ced = cliente.value.numero_identificacion.trim()
+  const ced = cliente.value.numeroIdentificacion.trim()
   if (!/^\d{6,15}$/.test(ced)) return 'La identificación debe contener entre 6 y 15 dígitos numéricos.'
-  cliente.value.numero_identificacion = ced
+  cliente.value.numeroIdentificacion = ced
   return ''
 }
 
@@ -226,38 +226,38 @@ const soloNumerostelefono = (campo: string, maxLong: number) => {
 }
 
 const validarTipoDocumento = () => {
-  if (!cliente.value.id_tipo_documento || cliente.value.id_tipo_documento === 0) {
+  if (!cliente.value.idTipoDocumento || cliente.value.idTipoDocumento === 0) {
     return 'Por favor, seleccione un tipo de documento.'
   }
   return ''
 }
 
 const validarcontribuyente = () => {
-  if (!cliente.value.id_tipo_contribuyente || cliente.value.id_tipo_contribuyente === 0) {
+  if (!cliente.value.idTipoContribuyente || cliente.value.idTipoContribuyente === 0) {
     return 'Por favor, seleccione un tipo de contribuyente.'
   }
   return ''
 }
 
 const validarCiudad = () => {
-  if (!cliente.value.id_ciudad || cliente.value.id_ciudad === 0) {
+  if (!cliente.value.idCiudad || cliente.value.idCiudad === 0) {
     return 'Por favor, seleccione una ciudad.'
   }
   return ''
 }
 
 const validarEmpresa = () => {
-  if (!cliente.value.id_empresa || cliente.value.id_empresa === 0) {
+  if (!cliente.value.idEmpresa || cliente.value.idEmpresa === 0) {
     return 'Por favor, seleccione una empresa.'
   }
   return ''
 }
 
 const razonSOCIAL = () => {
-  const razon_social = cliente.value.razon_social.trim().replace(/\s+/g, ' ')
-  if (!razon_social) return 'Por favor, ingrese la razón social.'
-  if (razon_social.length < 3) return 'Debe tener al menos 3 caracteres.'
-  cliente.value.razon_social = razon_social
+  const razonSocial = cliente.value.razonSocial.trim().replace(/\s+/g, ' ')
+  if (!razonSocial) return 'Por favor, ingrese la razón social.'
+  if (razonSocial.length < 3) return 'Debe tener al menos 3 caracteres.'
+  cliente.value.razonSocial = razonSocial
   return ''
 }
 
@@ -287,23 +287,23 @@ const validarCorreo = () => {
 }
 
 const validarCuentaLocal = () => {
-  const cuenta = cliente.value.cuenta_local.trim()
+  const cuenta = cliente.value.cuentaLocal.trim()
   if (!cuenta) return 'Por favor, ingrese la cuenta local.'
-  cliente.value.cuenta_local = cuenta
+  cliente.value.cuentaLocal = cuenta
   return ''
 }
 
 const validarCuentaExtranjera = () => {
-  const cuenta = cliente.value.cuenta_extranjera.trim()
+  const cuenta = cliente.value.cuentaExtranjera.trim()
   if (!cuenta) return 'Por favor, ingrese la cuenta extranjera.'
-  cliente.value.cuenta_extranjera = cuenta
+  cliente.value.cuentaExtranjera = cuenta
   return ''
 }
 
 // VERIFICAR DUPLICADOS
 interface clienteDatos {
-  id_cliente: number
-  numero_identificacion: string
+  idCliente: number
+  numeroIdentificacion: string
   correo: string
 }
 
@@ -312,33 +312,33 @@ const verificarclienteDuplicado = async () => {
     const { data } = await axios.get('http://localhost:8080/api/cliente')
     const clientesRegistrados = data.clientes
 
-    const numero_identificacion = cliente.value.numero_identificacion.trim()
+    const numeroIdentificacion = cliente.value.numeroIdentificacion.trim()
     const correo = cliente.value.correo.trim().toLowerCase()
 
-    const numero_identificacionExistente = clientesRegistrados.some((u: clienteDatos) => u.numero_identificacion === numero_identificacion)
+    const numeroIdentificacionExistente = clientesRegistrados.some((u: clienteDatos) => u.numeroIdentificacion === numeroIdentificacion)
     const correoExistente = clientesRegistrados.some((u: clienteDatos) => u.correo.toLowerCase() === correo)
 
-    return { numero_identificacionExistente, correoExistente }
+    return { numeroIdentificacionExistente, correoExistente }
   } catch (error) {
     console.error('Error al consultar clientes:', error)
-    return { numero_identificacionExistente: false, correoExistente: false }
+    return { numeroIdentificacionExistente: false, correoExistente: false }
   }
 }
 
 // CONFIGURACION PARA EJECUTAR GUARDAR O MODIFICAR
 const guardarOmodificar = async () => {
   enviado.value = true
-  errores.value.numero_identificacion = validarnumeroIDENTIFICACION()
-  errores.value.id_tipo_documento = validarTipoDocumento()
-  errores.value.id_tipo_contribuyente = validarcontribuyente()
-  errores.value.id_ciudad = validarCiudad()
-  errores.value.id_empresa = validarEmpresa()
-  errores.value.razon_social = razonSOCIAL()
+  errores.value.numeroIdentificacion = validarnumeroIDENTIFICACION()
+  errores.value.idTipoDocumento = validarTipoDocumento()
+  errores.value.idTipoContribuyente = validarcontribuyente()
+  errores.value.idCiudad = validarCiudad()
+  errores.value.idEmpresa = validarEmpresa()
+  errores.value.razonSocial = razonSOCIAL()
   errores.value.direccion = validarDireccion()
   errores.value.telefono = validarTelefono()
   errores.value.correo = validarCorreo()
-  errores.value.cuenta_local = validarCuentaLocal()
-  errores.value.cuenta_extranjera = validarCuentaExtranjera()
+  errores.value.cuentaLocal = validarCuentaLocal()
+  errores.value.cuentaExtranjera = validarCuentaExtranjera()
 
   const tieneErrores = Object.values(errores.value).some(e => e !== '')
   if (tieneErrores) {
@@ -346,12 +346,12 @@ const guardarOmodificar = async () => {
     return
   }
 
-  if (cliente.value.id_cliente) {
+  if (cliente.value.idCliente) {
     modificar()
   } else {
-    const { numero_identificacionExistente, correoExistente } = await verificarclienteDuplicado()
-    if (numero_identificacionExistente) {
-      errores.value.numero_identificacion = 'Ya existe un cliente con esta identificación.'
+    const { numeroIdentificacionExistente, correoExistente } = await verificarclienteDuplicado()
+    if (numeroIdentificacionExistente) {
+      errores.value.numeroIdentificacion = 'Ya existe un cliente con esta identificación.'
       makeToast('Error', 'Identificación ya registrada.', 'error')
       return
     }
@@ -380,17 +380,17 @@ const guardar = async () => {
 
   try {
     const response = await axios.post('http://localhost:8080/api/cliente', {
-      razon_social: cliente.value.razon_social,
-      numero_identificacion: cliente.value.numero_identificacion,
+      razon_social: cliente.value.razonSocial,
+      numero_identificacion: cliente.value.numeroIdentificacion,
       direccion: cliente.value.direccion,
       telefono: cliente.value.telefono,
       correo: cliente.value.correo,
-      cuenta_local: cliente.value.cuenta_local,
-      cuenta_extranjera: cliente.value.cuenta_extranjera,
-      id_tipo_documento: cliente.value.id_tipo_documento,
-      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
-      id_ciudad: cliente.value.id_ciudad,
-      id_empresa: cliente.value.id_empresa,
+      cuenta_local: cliente.value.cuentaLocal,
+      cuenta_extranjera: cliente.value.cuentaExtranjera,
+      id_tipo_documento: cliente.value.idTipoDocumento,
+      id_tipo_contribuyente: cliente.value.idTipoContribuyente,
+      id_ciudad: cliente.value.idCiudad,
+      id_empresa: cliente.value.idEmpresa,
       estado: true
     }, config)
 
@@ -425,18 +425,18 @@ const modificar = async () => {
         Authorization: `Bearer ${token}`
       }
     }
-    const response = await axios.put(`http://localhost:8080/api/cliente/${cliente.value.id_cliente}`, {
-      razon_social: cliente.value.razon_social,
-      numero_identificacion: cliente.value.numero_identificacion,
+    const response = await axios.put(`http://localhost:8080/api/cliente/${cliente.value.idCliente}`, {
+      razon_social: cliente.value.razonSocial,
+      numero_identificacion: cliente.value.numeroIdentificacion,
       direccion: cliente.value.direccion,
       telefono: cliente.value.telefono,
       correo: cliente.value.correo,
-      cuenta_local: cliente.value.cuenta_local,
-      cuenta_extranjera: cliente.value.cuenta_extranjera,
-      id_tipo_documento: cliente.value.id_tipo_documento,
-      id_tipo_contribuyente: cliente.value.id_tipo_contribuyente,
-      id_ciudad: cliente.value.id_ciudad,
-      id_empresa: cliente.value.id_empresa
+      cuenta_local: cliente.value.cuentaLocal,
+      cuenta_extranjera: cliente.value.cuentaExtranjera,
+      id_tipo_documento: cliente.value.idTipoDocumento,
+      id_tipo_contribuyente: cliente.value.idTipoContribuyente,
+      id_ciudad: cliente.value.idCiudad,
+      id_empresa: cliente.value.idEmpresa
     }, config)
 
     console.log(response.data)
@@ -465,22 +465,22 @@ const modificar = async () => {
 
 // Definir las estructuras
 interface TipoContribuyente {
-  id_tipo_contribuyente: number
+  idTipoContribuyente: number
   descripcion: string
 }
 
 interface TipoDocumento {
-  id_tipo_documento: number
+  idTipoDocumento: number
   descripcion: string
 }
 
 interface Ciudad {
-  id_ciudad: number
+  idCiudad: number
   nombre: string
 }
 
 interface Empresa {
-  id_empresa: number
+  idEmpresa: number
   nombre: string
 }
 
@@ -545,17 +545,17 @@ onMounted(() => {
 // CODIGO PARA LIMPIAR EL FORMULARIO
 const limpiarFormulario = () => {
   Object.assign(cliente.value, {
-    numero_identificacion: '',
-    id_tipo_contribuyente: 0,
+    numeroIdentificacion: '',
+    idTipoContribuyente: 0,
     telefono: '',
     correo: '',
-    id_empresa: 0,
-    cuenta_extranjera: '',
-    cuenta_local: '',
-    id_ciudad: 0,
+    idEmpresa: 0,
+    cuentaExtranjera: '',
+    cuentaLocal: '',
+    idCiudad: 0,
     direccion: '',
-    razon_social: '',
-    id_tipo_documento: 0
+    razonSocial: '',
+    idTipoDocumento: 0
   })
 }
 

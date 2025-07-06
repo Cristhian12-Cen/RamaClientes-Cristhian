@@ -75,20 +75,20 @@
                   </thead>
                   <tbody>
                      <!-- prueb de como mostrar despues los datos de la bd -->
-                     <tr v-for="item in clientes" :key="item.id_cliente">
+                     <tr v-for="item in clientes" :key="item.idCliente">
                         <!-- cambiar luego el id por como esta en la base de datos -->
-                        <td class="number">{{ item.id_cliente }}</td>
-                        <td>{{ item.tipo_documento?.descripcion || 'Sin tipo' }}</td>
-                        <td  class="number">{{ item.numero_identificacion }}</td>
-                        <td>{{ item.tipo_contribuyente?.descripcion || 'Sin tipo' }}</td>
-                        <td>{{ item.razon_social }}</td>
+                        <td class="number">{{ item.idCliente }}</td>
+                        <td>{{ item.tipoDocumento?.descripcion || 'Sin tipo' }}</td>
+                        <td  class="number">{{ item.numeroIdentificacion }}</td>
+                        <td>{{ item.tipoContribuyente?.descripcion || 'Sin tipo' }}</td>
+                        <td>{{ item.razonSocial }}</td>
                         <td>{{ item.direccion }}</td>
                         <td class="number">{{ item.ciudad?.nombre || 'Sin ciudad' }}</td>
                         <td class="number">{{ item.telefono }}</td>
                         <td>{{ item.correo }}</td>
                         <td class="number">{{ item.empresa?.nombre || 'Sin empresa' }}</td>
-                        <td>{{ item.cuenta_local }}</td>
-                        <td>{{ item.cuenta_extranjera }}</td>
+                        <td>{{ item.cuentaLocal }}</td>
+                        <td>{{ item.cuentaExtranjera }}</td>
                         <td>
                            <button class="btn btn-edit" @click="editar(item, 'modificar')">
                               <Icon icon="mdi:pencil" width="20" height="20" />
@@ -165,18 +165,18 @@ const abrirModal = (accion: string) => {
 const cerrarModal = () => {
   mostrarModal.value = false
   selectedItem.value = {
-    id_cliente: 0,
-    tipo_documento: { descripcion: '' },
-    numero_identificacion: '',
-    tipo_contribuyente: { descripcion: '' },
-    razon_social: '',
+    idCliente: 0,
+    tipoDocumento: { descripcion: '' },
+    numeroIdentificacion: '',
+    tipoContribuyente: { descripcion: '' },
+    razonSocial: '',
     direccion: '',
     ciudad: { nombre: '' },
     telefono: '',
     correo: '',
     empresa: { nombre: '' },
-    cuenta_local: '',
-    cuenta_extranjera: '',
+    cuentaLocal: '',
+    cuentaExtranjera: '',
     estado: ''
   }
 }
@@ -187,19 +187,19 @@ const recargartabla = () => {
     .then(response => {
       clientes.value = response.data.clientes.map((cliente: any) => ({
         // Campos básicos
-        id_cliente: cliente.id_cliente,
-        numero_identificacion: cliente.numero_identificacion,
-        razon_social: cliente.razon_social,
+        idCliente: cliente.id_cliente,
+        numeroIdentificacion: cliente.numero_identificacion,
+        razonSocial: cliente.razon_social,
         direccion: cliente.direccion,
         telefono: cliente.telefono,
         correo: cliente.correo,
-        cuenta_local: cliente.cuenta_local,
-        cuenta_extranjera: cliente.cuenta_extranjera,
+        cuentaLocal: cliente.cuenta_local,
+        cuentaExtranjera: cliente.cuenta_extranjera,
         // Campos con relaciones
         ciudad: { nombre: cliente.Ciudad?.nombre || 'Sin ciudad' },
         empresa: { nombre: cliente.Empresa?.nombre || 'Sin empresa' },
-        tipo_documento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
-        tipo_contribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
+        tipoDocumento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
+        tipoContribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
         estado: cliente.estado ? 'Activo' : 'Inactivo'
       }))
 
@@ -288,18 +288,18 @@ onMounted(() => {
 // -----------------------------TRAER clientes DE LA BASE DE DATOS ---------------------------------------------|
 
 interface Cliente { // definición de la interfaz para los datos de Cliente
-   id_cliente: number;
-   tipo_documento: { descripcion: string };
-   numero_identificacion: string;
-   tipo_contribuyente: { descripcion: string };
-   razon_social: string;
+   idCliente: number;
+   tipoDocumento: { descripcion: string };
+   numeroIdentificacion: string;
+   tipoContribuyente: { descripcion: string };
+   razonSocial: string;
    direccion: string;
    ciudad: { nombre: string };
    telefono: string;
    correo: string;
    empresa: { nombre: string };
-   cuenta_local: string;
-   cuenta_extranjera: string;
+   cuentaLocal: string;
+   cuentaExtranjera: string;
    estado: string;
 }
 
@@ -311,19 +311,19 @@ const getCliente = async () => {
     const response = await axios.get('http://localhost:8080/api/cliente')
     clientes.value = response.data.clientes.map((cliente: any) => ({
       // Campos básicos
-      id_cliente: cliente.id_cliente,
-      numero_identificacion: cliente.numero_identificacion,
-      razon_social: cliente.razon_social,
+      idCliente: cliente.id_cliente,
+      numeroIdentificacion: cliente.numero_identificacion,
+      razonSocial: cliente.razon_social,
       direccion: cliente.direccion,
       telefono: cliente.telefono,
       correo: cliente.correo,
-      cuenta_local: cliente.cuenta_local,
-      cuenta_extranjera: cliente.cuenta_extranjera,
+      cuentaLocal: cliente.cuenta_local,
+      cuentaExtranjera: cliente.cuenta_extranjera,
       // Campos con relaciones - mapear correctamente
       ciudad: { nombre: cliente.Ciudad?.nombre || 'Sin ciudad' },
       empresa: { nombre: cliente.Empresa?.nombre || 'Sin empresa' },
-      tipo_documento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
-      tipo_contribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
+      tipoDocumento: { descripcion: cliente.TipoDocumento?.descripcion || 'Sin tipo doc' },
+      tipoContribuyente: { descripcion: cliente.TipoContribuyente?.descripcion || 'Desconocido' },
       estado: cliente.estado ? 'Activo' : 'Inactivo'
     }))
     console.log('clientes cargados111:', response.data)
@@ -349,18 +349,18 @@ onMounted(() => {
 // ----------------CODIGO PARA SELECCIONAR UNA FILA DE LA TABLA PARA MODIFICARLA--------------------------------|
 
 const selectedItem = ref<Cliente>({
-  id_cliente: 0,
-  tipo_documento: { descripcion: '' },
-  numero_identificacion: '',
-  tipo_contribuyente: { descripcion: '' },
-  razon_social: '',
+  idCliente: 0,
+  tipoDocumento: { descripcion: '' },
+  numeroIdentificacion: '',
+  tipoContribuyente: { descripcion: '' },
+  razonSocial: '',
   direccion: '',
   ciudad: { nombre: '' },
   telefono: '',
   correo: '',
   empresa: { nombre: '' },
-  cuenta_local: '',
-  cuenta_extranjera: '',
+  cuentaLocal: '',
+  cuentaExtranjera: '',
   estado: ''
 }) // Variable para almacenar el elemento seleccionado
 
@@ -383,11 +383,11 @@ const editar = (item: Cliente, accion: string) => {
 
 // --------------------------CODIGO PARA ELIMINAR UNA FILA DE LA TABLA  -----------------------------------------|
 const eliminar = async (item: Cliente) => {
-  console.log('cliente a eliminar:', item.razon_social) // Depuración: Verificar si item es válido
+  console.log('cliente a eliminar:', item.razonSocial) // Depuración: Verificar si item es válido
 
   // Confirmar eliminación con SweetAlert
   Swal.fire({
-    title: `¿Estás seguro de que deseas eliminar al cliente: ${item.razon_social}?`,
+    title: `¿Estás seguro de que deseas eliminar al cliente: ${item.razonSocial}?`,
     text: 'No podrás revertir esto!',
     icon: 'question',
     showCancelButton: true,
@@ -415,7 +415,7 @@ const eliminar = async (item: Cliente) => {
         }
         console.log('token:', token)
         // Realizar la solicitud DELETE a la API
-        const response = await axios.delete(`http://localhost:8080/api/cliente/${item.id_cliente}`, config)
+        const response = await axios.delete(`http://localhost:8080/api/cliente/${item.idCliente}`, config)
         console.log('Respuesta de la API:', response) // Verificar la respuesta de la API
 
         // Forzar la actualización de la tabla con DataTable

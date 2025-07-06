@@ -1,5 +1,4 @@
-<template>
-  <!--
+<!--
   DOCUMENTACION PARA QUE SE ENTIENDA TODO LO QUE HACE ESTE CODIGO
 
   ----------------LEER--------------------------------------------
@@ -53,6 +52,7 @@
 
   EN LOS COMENTARIOS SIGUIENTES INTENTARE EXPLICAR PASO A PASO ASI PARA QUE NO HAYA CONFUCIONES
 -->
+<template>
   <!-- Modal de CARGAR UNA NUEVA EMPRESA -->
   <div class="modal fade show d-block" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
