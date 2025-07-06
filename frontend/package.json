@@ -13,7 +13,7 @@
     "@popperjs/core": "^2.11.8",
     "@tanstack/vue-table": "^8.21.2",
     "axios": "^1.8.4",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.7",
     "core-js": "^3.8.3",
     "datatables.net-autofill-bs5": "^2.7.0",
     "datatables.net-bs5": "^2.2.2",
